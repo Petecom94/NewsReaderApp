@@ -2,7 +2,10 @@ package com.example.pscproba46;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -14,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +26,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -93,7 +100,33 @@ Date currentime = Calendar.getInstance().getTime();
                Date date= sdf.parse(mMenetrend.get(position).getEnd_date());
                date.getTime();
 
+               menetrend = new Menetrend();
+               Menetrend.twitchButton.setText(mMenetrend.get(position).getTitle());
+               Menetrend.twitchButton.setVisibility(View.VISIBLE);
+               Menetrend.cimteszt.setVisibility(View.VISIBLE);
+               Menetrend.cardlayout.setVisibility(View.VISIBLE);
+               Menetrend.TwitchcardView.setVisibility(View.VISIBLE);
 
+               RequestOptions reqOpt = RequestOptions
+                       .fitCenterTransform()
+                       .transform(new RoundedCorners(5))
+                       .diskCacheStrategy(DiskCacheStrategy.ALL) // It will cache your image after loaded for first time
+                       .override(holder.imagekepmenetrend.getWidth(),holder.imagekepmenetrend.getWidth());
+
+               Glide.with(Menetrend.TwitchcardView.getContext())
+                       .load(mMenetrend.get(position).getImage().getUrl())
+                       .into(new CustomTarget<Drawable>() {
+                           @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                           @Override
+                           public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                               Menetrend.TwitchcardView.setBackground(resource);
+                           }
+
+                           @Override
+                           public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                           }
+                       });
 
 
                //  Menetrend.TwitchcardView.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, 250));
@@ -106,14 +139,8 @@ Date currentime = Calendar.getInstance().getTime();
                     holder.textvege.setText("Éppen zajlik");
                     holder.textvege.setTextColor(Color.GREEN);
 
-               menetrend = new Menetrend();
-               Menetrend.twitchButton.setText("dfsdfsd");
-               Menetrend.twitchButton.setVisibility(View.VISIBLE);
-               Menetrend.cimteszt.setVisibility(View.VISIBLE);
-               Menetrend.cardlayout.setVisibility(View.VISIBLE);
-               Menetrend.TwitchcardView.setVisibility(View.VISIBLE);
-           }
 
+           }
 
 
            else

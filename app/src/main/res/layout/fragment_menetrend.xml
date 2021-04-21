@@ -14,7 +14,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/TwitchcardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="180dp"
         android:layout_marginBottom="2dp"
         app:layout_constraintBottom_toTopOf="@+id/menetrendrec"
         app:layout_constraintEnd_toEndOf="parent"

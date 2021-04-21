@@ -1,6 +1,10 @@
 package com.example.pscproba46;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -48,7 +52,7 @@ public class Menetrend extends Fragment {
    public static TextView cimteszt;
    public static   Button twitchButton;
     Boolean twitchTrue;
-
+    Context context;
     private static final String TAG = "sddfsfsd";
     public ArrayList<EventMenetrend> mMenetrend = new ArrayList<>();
    // MenetrendAdat events = new ArrayList<>();
@@ -107,7 +111,7 @@ public class Menetrend extends Fragment {
         adapterMenetrend = new RecyclerViewAdapterMenetrend(getContext(), mMenetrend);
         recyclerViewMenetrend.setAdapter(adapterMenetrend);
         recyclerViewMenetrend.setHasFixedSize(true);
-
+        Context context= container.getContext();
         initrecview2();
         twitchButton=view.findViewById(R.id.Twitchbutton);
         twitchButton.setVisibility(View.GONE);
@@ -117,6 +121,7 @@ public class Menetrend extends Fragment {
         cardlayout.setVisibility(View.GONE);
         cimteszt=view.findViewById(R.id.TwitchtextView);
         cimteszt.setVisibility(View.GONE);
+
 
 //recyclerViewMenetrend.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT));
     return view;
