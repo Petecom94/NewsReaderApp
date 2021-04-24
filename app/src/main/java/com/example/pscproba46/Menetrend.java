@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -50,7 +51,7 @@ public class Menetrend extends Fragment {
     public static CardView TwitchcardView;
     public static ConstraintLayout cardlayout;
    public static TextView cimteszt;
-   public static   Button twitchButton;
+   public static ImageButton twitchButton;
     Boolean twitchTrue;
     Context context;
     private static final String TAG = "sddfsfsd";
@@ -113,7 +114,7 @@ public class Menetrend extends Fragment {
         recyclerViewMenetrend.setHasFixedSize(true);
         Context context= container.getContext();
         initrecview2();
-        twitchButton=view.findViewById(R.id.Twitchbutton);
+        twitchButton=view.findViewById(R.id.TwitchButton);
         twitchButton.setVisibility(View.GONE);
         TwitchcardView = view.findViewById(R.id.TwitchcardView);
         TwitchcardView.setVisibility(View.GONE);

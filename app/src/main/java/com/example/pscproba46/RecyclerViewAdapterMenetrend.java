@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,7 +94,7 @@ Date currentime = Calendar.getInstance().getTime();
 
         try {
            if(currentime.compareTo(sdf.parse(mMenetrend.get(position).getEnd_date()))>0){
-               holder.textkezdes.setText(mMenetrend.get(position).getStart_date());
+               //holder.textkezdes.setText(mMenetrend.get(position).getStart_date());
                holder.textvege.setText("Vége a streamnek");
                holder.textvege.setTextColor(Color.RED);
                holder.ButtonCalendar.setVisibility(View.GONE);
@@ -101,9 +102,11 @@ Date currentime = Calendar.getInstance().getTime();
                date.getTime();
 
                menetrend = new Menetrend();
-               Menetrend.twitchButton.setText(mMenetrend.get(position).getTitle());
+
                Menetrend.twitchButton.setVisibility(View.VISIBLE);
                Menetrend.cimteszt.setVisibility(View.VISIBLE);
+
+               Menetrend.cimteszt.setText(mMenetrend.get(position).getTitle());
                Menetrend.cardlayout.setVisibility(View.VISIBLE);
                Menetrend.TwitchcardView.setVisibility(View.VISIBLE);
 
@@ -115,6 +118,7 @@ Date currentime = Calendar.getInstance().getTime();
 
                Glide.with(Menetrend.TwitchcardView.getContext())
                        .load(mMenetrend.get(position).getImage().getUrl())
+
                        .into(new CustomTarget<Drawable>() {
                            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
                            @Override
@@ -127,6 +131,8 @@ Date currentime = Calendar.getInstance().getTime();
 
                            }
                        });
+
+
 
 
                //  Menetrend.TwitchcardView.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, 250));
@@ -143,17 +149,17 @@ Date currentime = Calendar.getInstance().getTime();
            }
 
 
-           else
+           //else
 
                holder.textvege.setText("Vége: "+mMenetrend.get(position).getEnd_date());
             holder.textkezdes.setText("Kezdés: "+mMenetrend.get(position).getStart_date());
-            holder.texteloado.setText(mMenetrend.get(position).getTitle());
+            holder.texteloado.setText(Html.fromHtml(mMenetrend.get(position).getTitle()));
 
             RequestOptions reqOpt = RequestOptions
                     .fitCenterTransform()
                     .transform(new RoundedCorners(5))
                     .diskCacheStrategy(DiskCacheStrategy.ALL) // It will cache your image after loaded for first time
-                    .override(holder.imagekepmenetrend.getWidth(),holder.imagekepmenetrend.getWidth()); // Overrides size of downloaded image and converts it's bitmaps to your desired image size;
+                    .override(holder.imagekepmenetrend.getWidth(),holder.imagekepmenetrend.getHeight()); // Overrides size of downloaded image and converts it's bitmaps to your desired image size;
             Glide.with(mContext2).asBitmap().load(mMenetrend.get(position).getImage().getUrl()).apply(reqOpt).into(holder.imagekepmenetrend);
 
 

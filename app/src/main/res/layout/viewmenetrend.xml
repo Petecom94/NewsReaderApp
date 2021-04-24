@@ -4,19 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parentmenetrend_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="160dp"
     android:background="@color/teal_700">
 
     <ImageView
         android:id="@+id/imagekepmenetrend"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
+        app:layout_constraintVertical_bias="0.45"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -25,14 +29,15 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
         android:text="TextView"
+
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toEndOf="@+id/imagekepmenetrend"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.47000003" />
+        app:layout_constraintTop_toBottomOf="@+id/texteloado"
+        app:layout_constraintVertical_bias="0.22000003" />
 
     <TextView
         android:id="@+id/textvege"
@@ -42,22 +47,22 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toEndOf="@+id/imagekepmenetrend"
         app:layout_constraintTop_toBottomOf="@+id/textkezdes"
-        app:layout_constraintVertical_bias="0.26" />
+        app:layout_constraintVertical_bias="0.19" />
 
     <TextView
         android:id="@+id/texteloado"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/textkezdes"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toEndOf="@+id/imagekepmenetrend"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.789" />
+        app:layout_constraintVertical_bias="0.19999999" />
 
     <Button
         android:id="@+id/ButtonCalendar"
