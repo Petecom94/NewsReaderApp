@@ -11,10 +11,23 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/textleirascikkek"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.050000012"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@drawable/trending_gradient_shape"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textkezdescikkek"
@@ -29,22 +42,25 @@
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19999999" />
+        app:layout_constraintVertical_bias="0.120000005" />
 
     <LinearLayout
         android:id="@+id/textleirascikkek"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/teal_700"
+        android:layout_height="30dp"
+        android:background="#9E515050"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/imagekepcikkek"
-        app:layout_constraintEnd_toEndOf="@+id/imagekep">
+        app:layout_constraintBottom_toBottomOf="@id/imagekepcikkek"
+        app:layout_constraintEnd_toEndOf="@id/imagekepcikkek"
+        app:layout_constraintStart_toStartOf="@id/imagekepcikkek"
+        app:layout_constraintTop_toBottomOf="@id/textkezdescikkek"
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
             android:id="@+id/textszerzocikkek"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="TextView"
 

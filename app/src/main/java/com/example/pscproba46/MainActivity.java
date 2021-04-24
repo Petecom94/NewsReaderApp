@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -22,6 +24,22 @@ public class MainActivity extends AppCompatActivity {
         final Fragment fragment1 = new Cikkek();
         final Fragment fragment2 = new Home();
         final Fragment fragment3 = new Menetrend();
+
+        ProgressBar bar= findViewById(R.id.progressBar);
+        bar.setVisibility(View.GONE);
+      if(!fragment1.isResumed()){
+
+          bar.setVisibility(View.VISIBLE);
+      }
+        if(!fragment2.isResumed()){
+
+            bar.setVisibility(View.VISIBLE);
+        }
+        if(!fragment3.isResumed()){
+
+            bar.setVisibility(View.VISIBLE);
+        }else
+            bar.setVisibility(View.GONE);
 
         // handle navigation selection
         bottomNavigationView.setOnNavigationItemSelectedListener(
