@@ -8,6 +8,11 @@ private String slug;
 private String formatted_date;
 private Author author_meta;
 private Title title;
+private Rendered excerpt;
+
+    public Rendered getExcerpt() {
+        return excerpt;
+    }
 
     public Title getTitle() {
         return title;

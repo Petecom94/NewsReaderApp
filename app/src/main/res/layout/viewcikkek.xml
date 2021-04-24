@@ -11,11 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/textleirascikkek"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.050000012"
         tools:srcCompat="@tools:sample/avatars" />
 
     <View
@@ -38,7 +37,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imagekep"
+        app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -47,15 +46,13 @@
     <LinearLayout
         android:id="@+id/textleirascikkek"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:background="#9E515050"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/imagekepcikkek"
-        app:layout_constraintEnd_toEndOf="@id/imagekepcikkek"
-        app:layout_constraintStart_toStartOf="@id/imagekepcikkek"
-        app:layout_constraintTop_toBottomOf="@id/textkezdescikkek"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/textszerzocikkek"
@@ -64,7 +61,9 @@
             android:layout_weight="1"
             android:text="TextView"
 
-            android:textColor="@color/white" />
+            android:textAlignment="viewEnd"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/textdatumcikkek"
@@ -73,7 +72,8 @@
             android:layout_weight="1"
             android:text="TextView"
             android:textAlignment="center"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/texthirekcikkek"
@@ -84,8 +84,9 @@
             android:baselineAligned="false"
             android:layoutDirection="inherit"
             android:text="Cikkek"
-            android:textAlignment="viewEnd"
-            android:textColor="@color/white" />
+            android:textAlignment="viewStart"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

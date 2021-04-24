@@ -68,9 +68,9 @@ MainActivity asd;
 
           // holder.textfocim.setText(mImageNames.get(position).getTitle().getTitle().replace("&#8211;",""));
         holder.textfocim.setText(Html.fromHtml(mImageNames.get(position).getTitle().getTitle()));
-           holder.textdatum.setText(mImageNames.get(position).getFormatted_date());
+        holder.textdatum.setText(mImageNames.get(position).getFormatted_date());
         holder.textszerzo.setText(mImageNames.get(position).getAuthor_meta().getAuthor());
-
+        holder.alcim.setText(Html.fromHtml(mImageNames.get(position).getExcerpt().getRendered()));
         RequestOptions reqOpt = RequestOptions
                 .fitCenterTransform()
                 //.transform(new RoundedCorners(5))
@@ -115,12 +115,13 @@ MainActivity asd;
         TextView textszerzo;
         TextView textdatum;
         TextView textkategoria;
+        TextView alcim;
         ConstraintLayout parentlayout;
         LinearLayout linTextParent;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            alcim=itemView.findViewById(R.id.textAlcim);
             kepview=itemView.findViewById(R.id.imagekep);
             textfocim=itemView.findViewById(R.id.textkezdes);
             parentlayout=itemView.findViewById(R.id.parent_layout)   ;

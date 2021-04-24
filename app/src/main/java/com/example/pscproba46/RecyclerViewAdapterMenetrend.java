@@ -103,6 +103,21 @@ Date currentime = Calendar.getInstance().getTime();
 
                menetrend = new Menetrend();
 
+
+
+
+
+
+               //  Menetrend.TwitchcardView.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, 250));
+               // menetrend.recyclerViewMenetrend.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.));
+
+           }  if(currentime.compareTo(sdf.parse(mMenetrend.get(position).getStart_date()))>0 && currentime.compareTo(sdf.parse(mMenetrend.get(position).getEnd_date()))<0){
+
+                    holder.textkezdes.setText(mMenetrend.get(position).getStart_date());
+
+
+                    holder.textvege.setTextColor(Color.GREEN);
+               holder.textvege.setText("Éppen zajlik");
                Menetrend.twitchButton.setVisibility(View.VISIBLE);
                Menetrend.cimteszt.setVisibility(View.VISIBLE);
 
@@ -131,25 +146,11 @@ Date currentime = Calendar.getInstance().getTime();
 
                            }
                        });
-
-
-
-
-               //  Menetrend.TwitchcardView.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, 250));
-               // menetrend.recyclerViewMenetrend.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.));
-
-           } else if(currentime.compareTo(sdf.parse(mMenetrend.get(position).getStart_date()))>0 && currentime.compareTo(sdf.parse(mMenetrend.get(position).getEnd_date()))<0){
-
-                    holder.textkezdes.setText(mMenetrend.get(position).getStart_date());
-
-                    holder.textvege.setText("Éppen zajlik");
-                    holder.textvege.setTextColor(Color.GREEN);
-
-
+holder.ButtonCalendar.setVisibility(View.INVISIBLE);
            }
 
 
-           //else
+           else
 
                holder.textvege.setText("Vége: "+mMenetrend.get(position).getEnd_date());
             holder.textkezdes.setText("Kezdés: "+mMenetrend.get(position).getStart_date());
