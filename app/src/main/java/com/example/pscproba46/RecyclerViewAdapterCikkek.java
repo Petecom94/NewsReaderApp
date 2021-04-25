@@ -75,8 +75,8 @@ MainActivity asd;
                 .fitCenterTransform()
                 //.transform(new RoundedCorners(5))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)   // It will cache your image after loaded for first time
-                .override(holder.parentlayoutcikkek.getWidth(),holder.parentlayoutcikkek.getMaxWidth()).placeholder(R.drawable.defaultpsc); // Overrides size of downloaded image and converts it's bitmaps to your desired image size;
-        Glide.with(mContext).load(mImageNames.get(position).getFimg_url()).apply(reqOpt)
+                .override(holder.kepviewcikkek.getWidth(),holder.kepviewcikkek.getWidth()); // Overrides size of downloaded image and converts it's bitmaps to your desired image size;
+        Glide.with(mContext).load(mImageNames.get(position).getFimg_url()).apply(reqOpt).placeholder(R.drawable.defaultpsc)
                 .into(holder.kepviewcikkek);
 
 
