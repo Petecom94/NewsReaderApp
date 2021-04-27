@@ -2,6 +2,9 @@ package com.example.pscproba46;
 
 public class Post {
 
+
+
+    private String id;
 private String link;
 private String jetpack_featured_media_url;
 private String slug;
@@ -9,6 +12,11 @@ private String formatted_date;
 private Author author_meta;
 private Title title;
 private Rendered excerpt;
+
+
+    public String getId() {
+        return id;
+    }
 
     public Rendered getExcerpt() {
         return excerpt;

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * create an instance of this fragment.
  */
 public class Home extends Fragment {
+    public static TextView textKedvencek;
     RecyclerView.LayoutManager manager;
     Fragment fragment= null;
     ArrayList<List> items;
@@ -45,7 +47,7 @@ public class Home extends Fragment {
     public ArrayList<HashMap> hirek;
     ArrayList<HashMap<String, String>> contactList;
     public int pagenumber = 1;
-    RecyclerViewAdapter adapter;
+     RecyclerViewAdapter adapter;
 
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
@@ -111,8 +113,8 @@ public class Home extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         initrecview();
-
-
+        MainActivity.bar.setVisibility(View.GONE);
+textKedvencek= view.findViewById(R.id.textKedvencek);
 
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -134,8 +136,8 @@ public class Home extends Fragment {
                        }
                    });
 
-               }else
-                   buttonUp.setVisibility(View.GONE);
+               }else{
+                   buttonUp.setVisibility(View.GONE);}
                 if (dy > 0) { //check for scroll down
                     visibleItemCount = manager.getChildCount();
                     totalItemCount = manager.getItemCount();

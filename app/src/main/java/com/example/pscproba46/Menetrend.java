@@ -105,6 +105,7 @@ public class Menetrend extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_menetrend, container, false);
         RecyclerView.LayoutManager managerMenetrend = new LinearLayoutManager(getContext());
         recyclerViewMenetrend = (RecyclerView) view.findViewById(R.id.menetrendrec);
@@ -122,7 +123,7 @@ public class Menetrend extends Fragment {
         cardlayout.setVisibility(View.GONE);
         cimteszt=view.findViewById(R.id.TwitchtextView);
         cimteszt.setVisibility(View.GONE);
-
+        MainActivity.bar.setVisibility(View.GONE);
 
 //recyclerViewMenetrend.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT));
     return view;

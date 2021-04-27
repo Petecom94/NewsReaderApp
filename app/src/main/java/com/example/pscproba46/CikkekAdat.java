@@ -1,13 +1,16 @@
 package com.example.pscproba46;
 
 public class CikkekAdat {
-
+    private String id;
     private LinkCikk title;
     private String formatted_date;
     private AuthorCikkek author_meta;
     private String link;
     private String fimg_url;
 
+    public String getId() {
+        return id;
+    }
 
     public LinkCikk getTitle() {
         return title;

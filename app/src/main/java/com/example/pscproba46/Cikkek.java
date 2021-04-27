@@ -78,6 +78,7 @@ public class Cikkek extends Fragment {
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -87,7 +88,9 @@ public class Cikkek extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
+
     }
 
     @Override
@@ -103,6 +106,7 @@ public class Cikkek extends Fragment {
         recyclerViewCikkek.setAdapter(adapter);
         recyclerViewCikkek.setHasFixedSize(true);
         initrecview3();
+        MainActivity.bar.setVisibility(View.GONE);
         recyclerViewCikkek.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {

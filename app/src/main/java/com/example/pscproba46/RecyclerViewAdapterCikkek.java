@@ -80,7 +80,7 @@ MainActivity asd;
                 .into(holder.kepviewcikkek);
 
 
-
+Log.e("ID cikkek:",mImageNames.get(position).getId());
            holder.parentlayoutcikkek.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {

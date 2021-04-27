@@ -9,11 +9,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-
+TextView kedvencek;
+    Fragment fragment;
+   public static ProgressBar bar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,36 +27,28 @@ public class MainActivity extends AppCompatActivity {
         final Fragment fragment1 = new Cikkek();
         final Fragment fragment2 = new Home();
         final Fragment fragment3 = new Menetrend();
+ kedvencek = findViewById(R.id.textKedvencek);
+         bar= findViewById(R.id.progressBar);
+        bar.setVisibility(View.VISIBLE);
 
-        ProgressBar bar= findViewById(R.id.progressBar);
-        bar.setVisibility(View.GONE);
-      if(!fragment1.isResumed()){
 
-          bar.setVisibility(View.VISIBLE);
-      }
-        if(!fragment2.isResumed()){
-
-            bar.setVisibility(View.VISIBLE);
-        }
-        if(!fragment3.isResumed()){
-
-            bar.setVisibility(View.VISIBLE);
-        }else
-            bar.setVisibility(View.GONE);
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment1).commit();
 
         // handle navigation selection
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        Fragment fragment;
+                       // Fragment fragment;
                         switch (item.getItemId()) {
                             case R.id.dashboard:
                                 fragment = fragment1;
+
                                 break;
                             case R.id.home:
                             default:
                                 fragment = fragment2;
+
                                 break;
                             case R.id.about:
 
