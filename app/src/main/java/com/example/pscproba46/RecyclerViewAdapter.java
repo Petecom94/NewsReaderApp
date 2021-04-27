@@ -103,7 +103,7 @@ MainActivity asd;
 
                         multiarray.add(mImageNames.get(position).getId());
                         Home.textKedvencek.setText("Kedvenceim(" + multiarray.size() + ")");
-
+                        System.out.println("dsfdsf");
 
                     }else if(multiarray.contains(mImageNames.get(position).getId().toString())){
                         holder.kedvencButton.setBackgroundColor(Color.RED);
