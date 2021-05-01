@@ -115,7 +115,7 @@ public class Home extends Fragment {
         initrecview();
         MainActivity.bar.setVisibility(View.GONE);
 textKedvencek= view.findViewById(R.id.textKedvencek);
-
+        textKedvencek.setText("Kedvenceim"+ "("+RecyclerViewAdapter.getAllSavedMyIds(getContext()).size()+")" );
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 

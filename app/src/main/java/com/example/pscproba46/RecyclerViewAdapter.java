@@ -26,8 +26,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
@@ -39,6 +42,10 @@ MainActivity asd;
 
 // az interface get metódusa
 
+
+    public RecyclerViewAdapter(Context mContext) {
+        this.mContext = mContext;
+    }
 
     public RecyclerViewAdapter(Context mContext, ArrayList<Post> mImagesNames ) {
         this.mContext = mContext;
@@ -88,8 +95,8 @@ MainActivity asd;
 
 
 
-       if(multiarray.contains(mImageNames.get(position).getId().toString())){
-            holder.kedvencButton.setBackgroundColor(Color.GREEN);
+       if(getAllSavedMyIds(mContext).contains(mImageNames.get(position).getId())){
+           holder.kedvencButton.setImageResource(R.drawable.ic_baseline_favorite_24);
 
 
         }
@@ -98,17 +105,25 @@ MainActivity asd;
             holder.kedvencButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!multiarray.contains(mImageNames.get(position).getId().toString())) {
-                        holder.kedvencButton.setBackgroundColor(Color.GREEN);
 
-                        multiarray.add(mImageNames.get(position).getId());
-                        Home.textKedvencek.setText("Kedvenceim(" + multiarray.size() + ")");
-                        System.out.println("dsfdsf");
+                    if (!getAllSavedMyIds(mContext).contains(mImageNames.get(position).getId())) {
+                       holder.kedvencButton.setImageResource(R.drawable.ic_baseline_favorite_24);
+multiarray =getAllSavedMyIds(mContext);
+                     multiarray.add(mImageNames.get(position).getId());
+                        saveMyIDs(mContext,multiarray);
 
-                    }else if(multiarray.contains(mImageNames.get(position).getId().toString())){
-                        holder.kedvencButton.setBackgroundColor(Color.RED);
+                        Home.textKedvencek.setText("Kedvenceim(" +  getAllSavedMyIds(mContext).size()+ ")");
+
+
+                    }else if(getAllSavedMyIds(mContext).contains(mImageNames.get(position).getId())){
+                        holder.kedvencButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+                        getAllSavedMyIds(mContext).remove(mImageNames.get(position).getId());
                         multiarray.remove(mImageNames.get(position).getId());
-                        Home.textKedvencek.setText("Kedvenceim(" + multiarray.size() + ")");
+                       // multiarray =getAllSavedMyIds(mContext);
+                        saveMyIDs(mContext,multiarray);
+
+                        Home.textKedvencek.setText("Kedvenceim(" + getAllSavedMyIds(mContext).size()+ ")");
+
                     }
                 }
 
@@ -157,6 +172,32 @@ MainActivity asd;
         return super.getItemViewType(position);
     }
 
+
+
+    public static ArrayList<String> getAllSavedMyIds(Context context) {
+        ArrayList<String> savedCollage = new ArrayList<String>();
+        SharedPreferences mPrefs = context.getSharedPreferences("PhotoCollage", context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = mPrefs.getString("myJson", "");
+        if (json.isEmpty()) {
+            savedCollage = new ArrayList<String>();
+        } else {
+            Type type = new TypeToken<ArrayList<String>>() {
+            }.getType();
+            savedCollage = gson.fromJson(json, type);
+        }
+
+        return savedCollage;
+    }
+
+    public static void saveMyIDs(Context context, List<String> collageList) {
+        SharedPreferences mPrefs = context.getSharedPreferences("PhotoCollage", context.MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(collageList);
+        prefsEditor.putString("myJson", json);
+        prefsEditor.commit();
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageButton kedvencButton;

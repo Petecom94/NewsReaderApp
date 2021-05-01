@@ -27,9 +27,13 @@ TextView kedvencek;
         final Fragment fragment1 = new Cikkek();
         final Fragment fragment2 = new Home();
         final Fragment fragment3 = new Menetrend();
+        RecyclerViewAdapter recicle= new RecyclerViewAdapter(this);
  kedvencek = findViewById(R.id.textKedvencek);
+
          bar= findViewById(R.id.progressBar);
         bar.setVisibility(View.VISIBLE);
+
+
 
 
         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment1).commit();
