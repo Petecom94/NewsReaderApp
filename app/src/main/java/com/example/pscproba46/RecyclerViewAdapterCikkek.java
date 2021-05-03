@@ -2,6 +2,7 @@ package com.example.pscproba46;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.text.Html;
 import android.util.Log;
@@ -20,14 +21,18 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecyclerViewAdapterCikkek extends RecyclerView.Adapter<RecyclerViewAdapterCikkek.ViewHolder> {
 
     private static final String TAG = "RecyclerViewAdapter";
     private ArrayList<CikkekAdat> mImageNames;
-
+    public  ArrayList<String> multiarrayKedvencek= new ArrayList<>();
     private Context mContext;
 MainActivity asd;
 
@@ -97,7 +102,41 @@ Log.e("ID cikkek:",mImageNames.get(position).getId());
 
            });
 
+        if(getAllSavedMyIds(mContext).contains(mImageNames.get(position).getId())){
+            holder.imageKedvencek.setImageResource(R.drawable.ic_baseline_favorite_24);
 
+
+        }
+
+
+        holder.imageKedvencek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!getAllSavedMyIds(mContext).contains(mImageNames.get(position).getId())) {
+                    holder.imageKedvencek.setImageResource(R.drawable.ic_baseline_favorite_24);
+                    multiarrayKedvencek =getAllSavedMyIds(mContext);
+                    multiarrayKedvencek.add(mImageNames.get(position).getId());
+                    saveMyIDs(mContext,multiarrayKedvencek);
+
+                    Cikkek.textkedvencikkek.setText("Kedvenceim(" +  getAllSavedMyIds(mContext).size()+ ")");
+
+
+                }else if(getAllSavedMyIds(mContext).contains(mImageNames.get(position).getId())){
+                    holder.imageKedvencek.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+                    getAllSavedMyIds(mContext).remove(mImageNames.get(position).getId());
+                    multiarrayKedvencek =getAllSavedMyIds(mContext);
+                    multiarrayKedvencek.remove(mImageNames.get(position).getId());
+
+
+                    saveMyIDs(mContext,multiarrayKedvencek);
+
+                    Cikkek.textkedvencikkek.setText("Kedvenceim(" + getAllSavedMyIds(mContext).size()+ ")");
+
+                }
+            }
+
+        });
     }
 
     @Override
@@ -107,9 +146,33 @@ Log.e("ID cikkek:",mImageNames.get(position).getId());
     }
 
 
+    public static ArrayList<String> getAllSavedMyIds(Context context) {
+        ArrayList<String> savedCollage = new ArrayList<String>();
+        SharedPreferences mPrefs = context.getSharedPreferences("Kedvencek", context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = mPrefs.getString("myJson", "");
+        if (json.isEmpty()) {
+            savedCollage = new ArrayList<String>();
+        } else {
+            Type type = new TypeToken<ArrayList<String>>() {
+            }.getType();
+            savedCollage = gson.fromJson(json, type);
+        }
 
+        return savedCollage;
+    }
+
+    public static void saveMyIDs(Context context, List<String> collageList) {
+        SharedPreferences mPrefs = context.getSharedPreferences("Kedvencek", context.MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(collageList);
+        prefsEditor.putString("myJson", json);
+        prefsEditor.commit();
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageKedvencek;
         ImageView kepviewcikkek;
         TextView textfocimcikkek;
         TextView textalcimcikkek;
@@ -121,7 +184,7 @@ Log.e("ID cikkek:",mImageNames.get(position).getId());
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
+imageKedvencek=itemView.findViewById(R.id.imageKedvencek);
             kepviewcikkek=itemView.findViewById(R.id.imagekepcikkek);
             textfocimcikkek=itemView.findViewById(R.id.textkezdescikkek);
             parentlayoutcikkek=itemView.findViewById(R.id.parentcikkek_layout)   ;

@@ -1,5 +1,6 @@
 package com.example.pscproba46;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -48,7 +49,7 @@ public class Home extends Fragment {
     ArrayList<HashMap<String, String>> contactList;
     public int pagenumber = 1;
      RecyclerViewAdapter adapter;
-
+public boolean clicked= true;
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
 
@@ -113,14 +114,34 @@ public class Home extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         initrecview();
+
         MainActivity.bar.setVisibility(View.GONE);
 textKedvencek= view.findViewById(R.id.textKedvencek);
+
         textKedvencek.setText("Kedvenceim"+ "("+RecyclerViewAdapter.getAllSavedMyIds(getContext()).size()+")" );
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+textKedvencek.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+
+        KedvencHirek nextFrag= new KedvencHirek();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, nextFrag, "findThisFragment")
+                .addToBackStack(null)
+                .commit();
+    }
+});
+
+
+
+
+
+  recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                returnArray(RecyclerViewAdapter.getAllSavedMyIds(getContext()));
+
               adapter.notifyDataSetChanged();
                if(recyclerView.getScrollState()==0){
                 buttonUp.setVisibility(View.VISIBLE);
@@ -190,8 +211,9 @@ return view;
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://playstationcommunity.hu/wp-json/wp/v2/").addConverterFactory(GsonConverterFactory.create()).build();
         JasonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JasonPlaceHolderApi.class);
-
+        //Call<List<Post>> call = jsonPlaceHolderApi.getPost("posts/?page=1&_embed&fbclid=IwAR0VKgpA9hN38Dhajrt4Dk4ba1LOoIrb9Wn2i2sDjg4zkFEP8Kb3vsDu7IQ&include=" + returnArray(RecyclerViewAdapter.getAllSavedMyIds(getContext())));
         Call<List<Post>> call = jsonPlaceHolderApi.getPost("posts/?page=" + pagenumber);
+
         call.enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
@@ -215,5 +237,58 @@ return view;
 
         });
         pagenumber++;
+
+
+
+    }
+
+    public void initrecview2() {
+
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://playstationcommunity.hu/wp-json/wp/v2/").addConverterFactory(GsonConverterFactory.create()).build();
+        JasonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JasonPlaceHolderApi.class);
+        Call<List<Post>> call = jsonPlaceHolderApi.getPost("posts/?page=1&_embed&fbclid=IwAR0VKgpA9hN38Dhajrt4Dk4ba1LOoIrb9Wn2i2sDjg4zkFEP8Kb3vsDu7IQ&include=" + returnArray(RecyclerViewAdapter.getAllSavedMyIds(getContext())));
+        //Call<List<Post>> call = jsonPlaceHolderApi.getPost("posts/?page=" + pagenumber);
+
+        call.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+
+                ArrayList<Post> posts = (ArrayList<Post>) response.body();
+
+                for (Post post : posts) {
+                    mNames.add(post);
+
+
+                }
+                adapter.setmImageNames(mNames);
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                Log.e("valami", "valami nem jó");
+            }
+
+        });
+
+
+
+
+    }
+
+
+
+
+
+
+    public String returnArray(ArrayList array){
+        String t="";
+     for(int i=0;i<array.size();i++){
+
+        t+= array.get(i)+",";
+     }
+        return t;
     }
 }

@@ -5,6 +5,7 @@
     android:id="@+id/home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="false"
     tools:context=".Home">
 
     <!-- TODO: Update blank fragment layout -->
@@ -29,8 +30,8 @@
     <Button
         android:id="@+id/buttonUp"
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/ic_baseline_arrow_upward_24"
         android:backgroundTint="@color/szürke"
@@ -46,6 +47,7 @@
         android:id="@+id/textKedvencek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="false"
         android:text="Kedvenceim"
         android:textColor="@color/white"
         android:textSize="18sp"

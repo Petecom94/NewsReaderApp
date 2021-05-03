@@ -118,8 +118,10 @@ multiarray =getAllSavedMyIds(mContext);
                     }else if(getAllSavedMyIds(mContext).contains(mImageNames.get(position).getId())){
                         holder.kedvencButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
                         getAllSavedMyIds(mContext).remove(mImageNames.get(position).getId());
+                        multiarray =getAllSavedMyIds(mContext);
                         multiarray.remove(mImageNames.get(position).getId());
-                       // multiarray =getAllSavedMyIds(mContext);
+
+
                         saveMyIDs(mContext,multiarray);
 
                         Home.textKedvencek.setText("Kedvenceim(" + getAllSavedMyIds(mContext).size()+ ")");

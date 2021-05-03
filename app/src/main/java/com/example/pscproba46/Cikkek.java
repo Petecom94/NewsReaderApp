@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,10 +45,10 @@ public class Cikkek extends Fragment {
     ArrayList<HashMap<String, String>> contactList;
     public int pagenumber = 1;
     RecyclerViewAdapterCikkek adapter;
-
+public static TextView textkedvencikkek;
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
-
+Button buttonCikkekUp;
     private String TAG;
     private Object view;
     ProgressBar progress;
@@ -106,10 +108,43 @@ public class Cikkek extends Fragment {
         recyclerViewCikkek.setAdapter(adapter);
         recyclerViewCikkek.setHasFixedSize(true);
         initrecview3();
+        textkedvencikkek=view.findViewById(R.id.textViewKedvencek);
         MainActivity.bar.setVisibility(View.GONE);
+        buttonCikkekUp=view.findViewById(R.id.buttonUpKedvencek);
+textkedvencikkek.setText("Kedvenceim"+"("+RecyclerViewAdapterCikkek.getAllSavedMyIds(getContext()).size()+")");
+
+textkedvencikkek.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+
+        KedvencCikkek nextFrag= new KedvencCikkek();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, nextFrag, "findThisFragment")
+                .addToBackStack(null)
+                .commit();
+    }
+});
+
         recyclerViewCikkek.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+                if(recyclerView.getScrollState()==0){
+                    buttonCikkekUp.setVisibility(View.VISIBLE);
+                    buttonCikkekUp.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            buttonCikkekUp.setVisibility(view.VISIBLE);
+                            recyclerView.smoothScrollToPosition(0);
+
+
+
+                        }
+                    });
+
+                }else{
+                    buttonCikkekUp.setVisibility(View.GONE);}
                 if (dy > 0) { //check for scroll down
                     visibleItemCount = managercikkek.getChildCount();
                     totalItemCount = managercikkek.getItemCount();
