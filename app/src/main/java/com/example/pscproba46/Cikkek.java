@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -118,10 +119,12 @@ textkedvencikkek.setOnClickListener(new View.OnClickListener() {
     public void onClick(View v) {
 
         KedvencCikkek nextFrag= new KedvencCikkek();
+
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, nextFrag, "findThisFragment")
                 .addToBackStack(null)
                 .commit();
+
     }
 });
 

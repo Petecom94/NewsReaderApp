@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -39,6 +42,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 public  ArrayList<String> multiarray= new ArrayList<>();
     private Context mContext;
 MainActivity asd;
+
 
 // az interface get metódusa
 
@@ -141,11 +145,17 @@ multiarray =getAllSavedMyIds(mContext);
                @Override
                public void onClick(View v) {
 
+WebView webview = new WebView(mContext);
+webview.loadUrl(mImageNames.get(position).getLink());
+WebSettings webSettings = webview.getSettings();
+webSettings.setJavaScriptEnabled(true);
 
-                Intent intent =new Intent(Intent.ACTION_VIEW);
+
+
+                /*Intent intent =new Intent(Intent.ACTION_VIEW);
                intent.setData(Uri.parse(mImageNames.get(position).getLink()));
                 
-                mContext.startActivity(intent);
+                mContext.startActivity(intent);*/
 
 
                }
