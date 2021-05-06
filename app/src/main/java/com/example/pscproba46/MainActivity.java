@@ -16,17 +16,22 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 TextView kedvencek;
     Fragment fragment;
+    Fragment fragment4=new WebViewFragment();
    public static ProgressBar bar;
+
+
+  FragmentManager fragmentManager = getSupportFragmentManager();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final FragmentManager fragmentManager = getSupportFragmentManager();
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         // define your fragments here
         final Fragment fragment1 = new Cikkek();
         final Fragment fragment2 = new Home();
         final Fragment fragment3 = new Menetrend();
+
         RecyclerViewAdapter recicle= new RecyclerViewAdapter(this);
  kedvencek = findViewById(R.id.textKedvencek);
 
@@ -47,23 +52,38 @@ TextView kedvencek;
                         switch (item.getItemId()) {
                             case R.id.dashboard:
                                 fragment = fragment1;
+                               // getSupportFragmentManager().popBackStack();
 
                                 break;
                             case R.id.home:
                             default:
                                 fragment = fragment2;
 
+                               // getSupportFragmentManager().popBackStack();
                                 break;
                             case R.id.about:
 
+                               // getSupportFragmentManager().popBackStack();
                                 fragment = fragment3;
                                 break;
                         }
-                        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
                         return true;
                     }
                 });
         // Set default selection
         bottomNavigationView.setSelectedItemId(R.id.menetrend);
     }
+
+  /*  @Override
+    public void onBackPressed(){
+        fragmentManager= getSupportFragmentManager();
+        if (fragmentManager.getBackStackEntryCount() == 0) {
+
+            fragmentManager.popBackStack();
+        } else {
+
+            super.onBackPressed();
+        }
+    }*/
     }

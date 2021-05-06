@@ -66,11 +66,20 @@ Button buttonUp;
         adapter = new RecyclerViewAdapter(getContext(), mNames);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
-        initrecview2();
+        if(RecyclerViewAdapter.getAllSavedMyIds(getContext()).size()!=manager.getItemCount()){
+            initrecview2();
+
+        }
+
 //buttonUp.setVisibility(View.GONE);
         MainActivity.bar.setVisibility(View.GONE);
 
         Home.textKedvencek.setText("Kedvenceim"+ "("+RecyclerViewAdapter.getAllSavedMyIds(getContext()).size()+")" );
+
+
+
+
+
 
 
 

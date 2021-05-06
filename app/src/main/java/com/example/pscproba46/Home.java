@@ -126,9 +126,12 @@ textKedvencek.setOnClickListener(new View.OnClickListener() {
 
         KedvencHirek nextFrag= new KedvencHirek();
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, nextFrag, "findThisFragment")
+                .replace(R.id.fragment_container, nextFrag,"HometoWeb")
+
                 .addToBackStack(null)
                 .commit();
+
+//.addToBackStack("null")
     }
 });
 

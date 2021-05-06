@@ -2,7 +2,6 @@ package com.example.pscproba46;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,6 +25,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -148,17 +148,19 @@ multiarray =getAllSavedMyIds(mContext);
            holder.parentlayout.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
-                   Fragment web= new WebViewFragment();
+                  // Fragment web= new WebViewFragment();
+                   MainActivity main= new MainActivity();
+
+
                    Bundle bundle = new Bundle();
                    bundle.putString("image", mImageNames.get(position).getLink());
-                   web.setArguments(bundle);//Here pass your data
+                   main.fragment4.setArguments(bundle);//Here pass your data
 
-
-                   FragmentManager manager = ((AppCompatActivity)mContext).getFragmentManager();
-                          manager.beginTransaction().replace(R.id.fragment_container,web)
+                   FragmentManager manager = ((AppCompatActivity)mContext).getSupportFragmentManager();
+                          manager.beginTransaction().replace(R.id.fragment_container,main.fragment4)
                                   .addToBackStack(null)
-                                  .commit();
 
+                                  .commit();
 
 
 

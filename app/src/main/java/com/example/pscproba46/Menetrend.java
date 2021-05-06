@@ -113,7 +113,7 @@ public class Menetrend extends Fragment {
         adapterMenetrend = new RecyclerViewAdapterMenetrend(getContext(), mMenetrend);
         recyclerViewMenetrend.setAdapter(adapterMenetrend);
         recyclerViewMenetrend.setHasFixedSize(true);
-        Context context= container.getContext();
+        //Context context= container.getContext();
         initrecview2();
         twitchButton=view.findViewById(R.id.TwitchButton);
         twitchButton.setVisibility(View.GONE);

@@ -1,6 +1,5 @@
 package com.example.pscproba46;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,7 @@ import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import java.sql.SQLOutput;
 
@@ -25,7 +25,7 @@ public class WebViewFragment extends Fragment {
 
         String fileName = this.getArguments().getString("image");
 
-       webview.loadUrl(fileName);
+   webview.loadUrl(fileName);
 
         // Enable Javascript
         WebSettings webSettings = webview.getSettings();
@@ -33,6 +33,16 @@ public class WebViewFragment extends Fragment {
 
         // Force links and redirects to open in the WebView instead of in a browser
         webview.setWebViewClient(new WebViewClient());
+
+
+
+
+     //webview.clearHistory();
         return view;
     }
+
+
+
 }
+
+
