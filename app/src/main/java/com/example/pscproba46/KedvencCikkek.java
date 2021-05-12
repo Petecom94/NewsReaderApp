@@ -82,11 +82,11 @@ public class KedvencCikkek extends Fragment {
 
                 for (CikkekAdat post : posts) {
                     mNames.add(post);
-
                 }
 
                 adapter.setmImageNames(mNames);
                 adapter.notifyDataSetChanged();
+
             }
 
 

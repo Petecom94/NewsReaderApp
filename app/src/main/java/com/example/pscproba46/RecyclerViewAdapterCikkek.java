@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -75,6 +78,7 @@ MainActivity asd;
         holder.textfocimcikkek.setText(Html.fromHtml(mImageNames.get(position).getTitle().getRendered()));
            holder.textdatumcikkek.setText(mImageNames.get(position).getFormatted_date());
         holder.textszerzocikkek.setText(mImageNames.get(position).getAuthor_meta().getDisplay_name());
+        holder.textalcimcikkek.setText(Html.fromHtml(mImageNames.get(position).getExcerpt().getRendered()));
 
         RequestOptions reqOpt = RequestOptions
                 .fitCenterTransform()
@@ -90,11 +94,31 @@ Log.e("ID cikkek:",mImageNames.get(position).getId());
                @Override
                public void onClick(View v) {
 
+                   MainActivity main= new MainActivity();
+                   Bundle bundle = new Bundle();
+                   if(getAllSavedMyIds(mContext).contains(mImageNames.get(position).getId())){
 
-                Intent intent =new Intent(Intent.ACTION_VIEW);
+                       bundle.putBoolean("booleanCikkek",true);
+                   }
+                   bundle.putString("imageLinkCikkek", mImageNames.get(position).getFimg_url());
+                   bundle.putString("titleCikkek",mImageNames.get(position).getTitle().getRendered());
+                   bundle.putString("imageCikkek",mImageNames.get(position).getLink());
+
+
+                   main.fragment5.setArguments(bundle);//Here pass your data
+
+                   FragmentManager manager = ((AppCompatActivity)mContext).getSupportFragmentManager();
+                   manager.beginTransaction().replace(R.id.fragment_container,main.fragment5)
+                           .addToBackStack(null)
+
+                           .commit();
+
+
+
+               /* Intent intent =new Intent(Intent.ACTION_VIEW);
                intent.setData(Uri.parse(mImageNames.get(position).getLink()));
                 
-                mContext.startActivity(intent);
+                mContext.startActivity(intent);*/
 
 
                }
@@ -172,6 +196,7 @@ Log.e("ID cikkek:",mImageNames.get(position).getId());
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView getTextalcimcikkek;
         ImageView imageKedvencek;
         ImageView kepviewcikkek;
         TextView textfocimcikkek;
@@ -192,6 +217,7 @@ imageKedvencek=itemView.findViewById(R.id.imageKedvencek);
             textdatumcikkek=itemView.findViewById(R.id.textdatumcikkek);
             textkategoriacikkek=itemView.findViewById(R.id.texthirekcikkek);
             linTextParentcikkek=itemView.findViewById(R.id.textleirascikkek);
+            textalcimcikkek=itemView.findViewById(R.id.textalcimcikkek);
             //Intent intent =new Intent(itemView.getContext(),MyWebview.class);
 
         }

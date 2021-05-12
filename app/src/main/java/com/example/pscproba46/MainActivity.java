@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 TextView kedvencek;
     Fragment fragment;
     Fragment fragment4=new WebViewFragment();
+    Fragment fragment5= new WebviewFragmentCikkek();
    public static ProgressBar bar;
 
 

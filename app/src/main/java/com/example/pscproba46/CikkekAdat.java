@@ -8,6 +8,12 @@ public class CikkekAdat {
     private String link;
     private String fimg_url;
 
+    public AlcimCikkek getExcerpt() {
+        return excerpt;
+    }
+
+    private AlcimCikkek excerpt;
+
     public String getId() {
         return id;
     }
