@@ -1,11 +1,13 @@
 package com.example.pscproba46;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -124,6 +126,24 @@ Date currentime = Calendar.getInstance().getTime();
                Menetrend.cimteszt.setText(mMenetrend.get(position).getTitle());
                Menetrend.cardlayout.setVisibility(View.VISIBLE);
                Menetrend.TwitchcardView.setVisibility(View.VISIBLE);
+
+               Menetrend.twitchButton.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       Uri uri = Uri.parse("https://www.twitch.tv/pschungary");
+
+                       Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+                       likeIng.setPackage("tv.twitch.android.viewer");
+
+                       try {
+                           mContext2.startActivity(likeIng);
+                       } catch (ActivityNotFoundException e) {
+                           mContext2.startActivity(new Intent(Intent.ACTION_VIEW,
+                                   Uri.parse("https://www.twitch.tv/pschungary"  )));
+                       }
+                   }
+               });
 
                RequestOptions reqOpt = RequestOptions
                        .fitCenterTransform()

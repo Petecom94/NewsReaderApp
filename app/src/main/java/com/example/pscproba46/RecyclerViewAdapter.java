@@ -12,6 +12,8 @@ import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -21,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -116,6 +119,7 @@ MainActivity asd;
 
                     if (!getAllSavedMyIds(mContext).contains(mImageNames.get(position).getId())) {
                        holder.kedvencButton.setImageResource(R.drawable.ic_baseline_favorite_24);
+
 multiarray =getAllSavedMyIds(mContext);
                      multiarray.add(mImageNames.get(position).getId());
                         saveMyIDs(mContext,multiarray);
@@ -153,7 +157,15 @@ multiarray =getAllSavedMyIds(mContext);
 
 
                    Bundle bundle = new Bundle();
+                   if(getAllSavedMyIds(mContext).contains(mImageNames.get(position).getId())){
+
+                      bundle.putBoolean("boolean",true);
+                   }
                    bundle.putString("image", mImageNames.get(position).getLink());
+                   bundle.putString("title",mImageNames.get(position).getTitle().getTitle());
+                   bundle.putString("imageLink",mImageNames.get(position).getimgLink());
+
+
                    main.fragment4.setArguments(bundle);//Here pass your data
 
                    FragmentManager manager = ((AppCompatActivity)mContext).getSupportFragmentManager();

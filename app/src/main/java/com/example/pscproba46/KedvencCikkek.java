@@ -105,7 +105,7 @@ public class KedvencCikkek extends Fragment {
 
     public String returnArray(){
         String t="";
-        for(int i=0;i<RecyclerViewAdapterCikkek.getAllSavedMyIds(getContext()).size();i++){
+        for(int i=0;i<=RecyclerViewAdapterCikkek.getAllSavedMyIds(getContext()).size()-1;i++){
 
             t+= RecyclerViewAdapterCikkek.getAllSavedMyIds(getContext()).get(i)+",";
         }

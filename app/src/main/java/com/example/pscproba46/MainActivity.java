@@ -50,12 +50,12 @@ TextView kedvencek;
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                        // Fragment fragment;
                         switch (item.getItemId()) {
-                            case R.id.dashboard:
+                            case R.id.like:
                                 fragment = fragment1;
                                // getSupportFragmentManager().popBackStack();
 
                                 break;
-                            case R.id.home:
+                            case R.id.share:
                             default:
                                 fragment = fragment2;
 

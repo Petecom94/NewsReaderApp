@@ -43,7 +43,7 @@ MainActivity asd;
         this.mContext = mContext;
         this.mImageNames = mImagesNames;
         notifyDataSetChanged();
-
+        setHasStableIds(true);
     }
 
 
@@ -70,7 +70,7 @@ MainActivity asd;
     @Override                         
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
            Log.d(TAG, "onCreateViewHolder: ");
-
+        holder.setIsRecyclable(false);
           // holder.textfocim.setText(mImageNames.get(position).getTitle().getTitle().replace("&#8211;",""));
         holder.textfocimcikkek.setText(Html.fromHtml(mImageNames.get(position).getTitle().getRendered()));
            holder.textdatumcikkek.setText(mImageNames.get(position).getFormatted_date());
