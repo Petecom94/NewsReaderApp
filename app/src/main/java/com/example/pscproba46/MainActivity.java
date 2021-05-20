@@ -2,9 +2,13 @@ package com.example.pscproba46;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,8 +22,10 @@ TextView kedvencek;
     Fragment fragment;
     Fragment fragment4=new WebViewFragment();
     Fragment fragment5= new WebviewFragmentCikkek();
+    Fragment fragment6= new Beallitas();
    public static ProgressBar bar;
-
+    public static SharedPreferences sharedPref;
+   public static SharedPreferences.Editor editor;
 
   FragmentManager fragmentManager = getSupportFragmentManager();
     @Override
@@ -39,7 +45,21 @@ TextView kedvencek;
          bar= findViewById(R.id.progressBar);
         bar.setVisibility(View.VISIBLE);
 
+        Context context = this.getApplicationContext();
+        sharedPref = context.getSharedPreferences(
+                "SötétMód", context.MODE_PRIVATE);
 
+         editor = sharedPref.edit();
+        editor.putBoolean("Sötétmód",true);
+
+        if(sharedPref.getBoolean("Sötétmód",true)){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+
+        }else{
+
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
 
         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment1).commit();
@@ -60,12 +80,17 @@ TextView kedvencek;
                             default:
                                 fragment = fragment2;
 
+
                                // getSupportFragmentManager().popBackStack();
                                 break;
                             case R.id.about:
 
                                // getSupportFragmentManager().popBackStack();
                                 fragment = fragment3;
+                                break;
+
+                            case R.id.beallitas:
+                                fragment=fragment6;
                                 break;
                         }
                         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
@@ -76,7 +101,12 @@ TextView kedvencek;
         bottomNavigationView.setSelectedItemId(R.id.menetrend);
     }
 
-  /*  @Override
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+    }
+/*  @Override
     public void onBackPressed(){
         fragmentManager= getSupportFragmentManager();
         if (fragmentManager.getBackStackEntryCount() == 0) {

@@ -161,7 +161,7 @@ textkedvencikkek.setOnClickListener(new View.OnClickListener() {
                             Log.v("...", "Last Item Wow !");
                             Retrofit retrofit = new Retrofit.Builder().baseUrl("https://playstationcommunity.hu/wp-json/wp/v2/").addConverterFactory(GsonConverterFactory.create()).build();
                             JasonPlaceHolderApiCikkek jsonPlaceHolderApiCikkek = retrofit.create(JasonPlaceHolderApiCikkek.class);
-                            Call<List<CikkekAdat>> call = jsonPlaceHolderApiCikkek.getPostCikkek("pages/?page=" + pagenumber);
+                            Call<List<CikkekAdat>> call = jsonPlaceHolderApiCikkek.getPostCikkek("pages/?page=" + pagenumber+"&_embed&author_exclude=1&fbclid=IwAR0JBS6fibv_i2Pt8Lq96HW6P5iN95b6yiAXtwrl9ZORhokjaHj1zBa6cpg");
                             call.enqueue(new Callback<List<CikkekAdat>>() {
                                 @Override
                                 public void onResponse(Call<List<CikkekAdat>> call, Response<List<CikkekAdat>> response) {
@@ -200,7 +200,7 @@ textkedvencikkek.setOnClickListener(new View.OnClickListener() {
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://playstationcommunity.hu/wp-json/wp/v2/").addConverterFactory(GsonConverterFactory.create()).build();
         JasonPlaceHolderApiCikkek jsonPlaceHolderApiCikkek = retrofit.create(JasonPlaceHolderApiCikkek.class);
-        Call<List<CikkekAdat>> call = jsonPlaceHolderApiCikkek.getPostCikkek("pages/?page=" +pagenumber );
+        Call<List<CikkekAdat>> call = jsonPlaceHolderApiCikkek.getPostCikkek("pages/?page=" +pagenumber+"&_embed&author_exclude=1&fbclid=IwAR0JBS6fibv_i2Pt8Lq96HW6P5iN95b6yiAXtwrl9ZORhokjaHj1zBa6cpg" );
         call.enqueue(new Callback<List<CikkekAdat>>() {
             @Override
             public void onResponse(Call<List<CikkekAdat>> call, Response<List<CikkekAdat>> response) {

@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pscproba46">
         <activity android:name=".MainActivity"
+
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
