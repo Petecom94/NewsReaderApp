@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -40,6 +41,10 @@ import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 
+
+import org.jsoup.Jsoup;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -77,7 +82,11 @@ public class WebViewFragment extends Fragment {
         String id = this.getArguments().getString("id");
        title = Html.fromHtml(this.getArguments().getString("title")).toString();
         imageLink = this.getArguments().getString("imageLink");
-        webview.loadUrl(fileName);
+
+
+
+
+
         Imageviews = view.findViewById(R.id.imageView);
         Imageviews.setVisibility(View.VISIBLE);
 
@@ -91,8 +100,33 @@ public class WebViewFragment extends Fragment {
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
+
         // Force links and redirects to open in the WebView instead of in a browser
-        webview.setWebViewClient(new WebViewClient());
+        webview.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageFinished(WebView view, String url) {
+
+
+                webview.loadUrl("javascript:(function() { " +
+                        "var head = document.getElementById('gp-main-header').style.display='none'; " +
+                        "})()");
+                webview.loadUrl("javascript:(function() { " +
+                        "var head = document.getElementById('gp-fixed-header-padding').style.display='none'; " +
+                        "})()");
+                webview.loadUrl("javascript:(function() { " +
+                        "var head = document.getElementById('gp-sidebar').style.display='none'; " +
+                        "})()");
+                webview.loadUrl("javascript:(function() { " +
+                        "var head = document.getElementById('gp-footer-widgets').style.display='none'; " +
+                        "})()");
+
+
+            }
+
+
+
+        });
+webview.loadUrl(fileName);
 
         Glide.with(this).asBitmap().load(imageLink).into(Imageviews);
 
@@ -190,6 +224,7 @@ onShareItem();
         }
         return bmpUri;
     }
+
 }
 
 

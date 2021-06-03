@@ -106,7 +106,7 @@ Date currentime = Calendar.getInstance().getTime();
                menetrend = new Menetrend();
 
 
-
+Date date2=sdf.parse(mMenetrend.get(0).start_date);
 
 
 

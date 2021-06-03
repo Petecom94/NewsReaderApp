@@ -111,7 +111,12 @@ public class Menetrend extends Fragment {
         recyclerViewMenetrend = (RecyclerView) view.findViewById(R.id.menetrendrec);
         recyclerViewMenetrend.setLayoutManager(managerMenetrend);
         adapterMenetrend = new RecyclerViewAdapterMenetrend(getContext(), mMenetrend);
+
         recyclerViewMenetrend.setAdapter(adapterMenetrend);
+ItemDecorationRecycler itemDecorationRecycler= new ItemDecorationRecycler(20);
+        ItemDecorationRecycler itemDecorationRecycler2= new ItemDecorationRecycler(-20);
+recyclerViewMenetrend.addItemDecoration(itemDecorationRecycler);
+recyclerViewMenetrend.addItemDecoration(itemDecorationRecycler,0);
         recyclerViewMenetrend.setHasFixedSize(true);
         //Context context= container.getContext();
         initrecview2();
