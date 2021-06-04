@@ -110,10 +110,10 @@ Button buttonCikkekUp;
         recyclerViewCikkek.setHasFixedSize(true);
         initrecview3();
         textkedvencikkek=view.findViewById(R.id.textViewKedvencek);
-        MainActivity.bar.setVisibility(View.GONE);
+
         buttonCikkekUp=view.findViewById(R.id.buttonUpKedvencek);
 textkedvencikkek.setText("Kedvenceim"+"("+RecyclerViewAdapterCikkek.getAllSavedMyIds(getContext()).size()+")");
-
+        MainActivity.bar.setVisibility(View.VISIBLE);
 textkedvencikkek.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {

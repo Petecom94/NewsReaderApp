@@ -161,6 +161,7 @@ Log.e("ID cikkek:",mImageNames.get(position).getId());
             }
 
         });
+        MainActivity.bar.setVisibility(View.GONE);
     }
 
     @Override

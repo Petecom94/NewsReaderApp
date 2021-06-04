@@ -114,8 +114,8 @@ public boolean clicked= true;
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         initrecview();
+        MainActivity.bar.setVisibility(View.VISIBLE);
 
-        MainActivity.bar.setVisibility(View.GONE);
 textKedvencek= view.findViewById(R.id.textKedvencek);
 
         textKedvencek.setText("Kedvenceim"+ "("+RecyclerViewAdapter.getAllSavedMyIds(getContext()).size()+")" );

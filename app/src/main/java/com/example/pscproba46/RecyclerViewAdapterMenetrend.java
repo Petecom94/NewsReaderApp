@@ -92,8 +92,22 @@ Date currentime = Calendar.getInstance().getTime();
         //currentime.compareTo(sdf.parse(mMenetrend.get(position).getEnd_date()))>0
          sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+        Glide.with(Menetrend.TwitchcardView.getContext())
+                .load(mMenetrend.get(0).getImage().getUrl())
 
+                .into(new CustomTarget<Drawable>() {
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        Menetrend.TwitchcardView.setBackground(resource);
+                    }
 
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                    }
+                });
+        Menetrend.cimteszt.setText(mMenetrend.get(0).getTitle());
         try {
            if(currentime.compareTo(sdf.parse(mMenetrend.get(position).getEnd_date()))>0){
                //holder.textkezdes.setText(mMenetrend.get(position).getStart_date());
@@ -224,7 +238,7 @@ holder.ButtonCalendar.setVisibility(View.INVISIBLE);
             e.printStackTrace();
         }
 
-
+        MainActivity.bar.setVisibility(View.GONE);
 
     }
 

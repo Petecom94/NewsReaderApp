@@ -121,14 +121,15 @@ recyclerViewMenetrend.addItemDecoration(itemDecorationRecycler,0);
         //Context context= container.getContext();
         initrecview2();
         twitchButton=view.findViewById(R.id.TwitchButton);
-        twitchButton.setVisibility(View.GONE);
+        twitchButton.setVisibility(View.VISIBLE);
         TwitchcardView = view.findViewById(R.id.TwitchcardView);
-        TwitchcardView.setVisibility(View.GONE);
+        TwitchcardView.setVisibility(View.VISIBLE);
         cardlayout= view.findViewById(R.id.Twitchlayout);
-        cardlayout.setVisibility(View.GONE);
+        cardlayout.setVisibility(View.VISIBLE);
         cimteszt=view.findViewById(R.id.TwitchtextView);
-        cimteszt.setVisibility(View.GONE);
-        MainActivity.bar.setVisibility(View.GONE);
+        cimteszt.setVisibility(View.VISIBLE);
+MainActivity.bar.setVisibility(View.VISIBLE);
+
 
 //recyclerViewMenetrend.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT));
     return view;
