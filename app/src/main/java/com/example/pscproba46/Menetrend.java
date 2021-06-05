@@ -121,13 +121,13 @@ recyclerViewMenetrend.addItemDecoration(itemDecorationRecycler,0);
         //Context context= container.getContext();
         initrecview2();
         twitchButton=view.findViewById(R.id.TwitchButton);
-        twitchButton.setVisibility(View.VISIBLE);
+        twitchButton.setVisibility(View.INVISIBLE);
         TwitchcardView = view.findViewById(R.id.TwitchcardView);
-        TwitchcardView.setVisibility(View.VISIBLE);
+        TwitchcardView.setVisibility(View.INVISIBLE);
         cardlayout= view.findViewById(R.id.Twitchlayout);
-        cardlayout.setVisibility(View.VISIBLE);
+        cardlayout.setVisibility(View.INVISIBLE);
         cimteszt=view.findViewById(R.id.TwitchtextView);
-        cimteszt.setVisibility(View.VISIBLE);
+        cimteszt.setVisibility(View.INVISIBLE);
 MainActivity.bar.setVisibility(View.VISIBLE);
 
 

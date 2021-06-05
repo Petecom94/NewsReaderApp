@@ -188,10 +188,7 @@ multiarray =getAllSavedMyIds(mContext);
 
 
            });
-       Menetrend.cimteszt.setVisibility(View.VISIBLE);
-        Menetrend.cardlayout.setVisibility(View.VISIBLE);
-        Menetrend.twitchButton.setVisibility(View.VISIBLE);
-        Menetrend.TwitchcardView.setVisibility(View.VISIBLE);
+      
         MainActivity.bar.setVisibility(View.GONE);
     }
 

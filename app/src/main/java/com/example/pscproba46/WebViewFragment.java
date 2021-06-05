@@ -121,10 +121,9 @@ public class WebViewFragment extends Fragment {
                         "})()");
 
 
+
+
             }
-
-
-
         });
 webview.loadUrl(fileName);
 

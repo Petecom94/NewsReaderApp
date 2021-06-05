@@ -237,7 +237,10 @@ holder.ButtonCalendar.setVisibility(View.INVISIBLE);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+        Menetrend.cardlayout.setVisibility(View.VISIBLE);
+        Menetrend.TwitchcardView.setVisibility(View.VISIBLE);
+        Menetrend.twitchButton.setVisibility(View.VISIBLE);
+        Menetrend.cimteszt.setVisibility(View.VISIBLE);
         MainActivity.bar.setVisibility(View.GONE);
 
     }
