@@ -2,7 +2,9 @@ package com.example.pscproba46;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ public class Beallitas extends Fragment {
 
 TextView beallit;
 Switch beallitGomb;
+public static TextView rendszertext;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -27,19 +30,24 @@ Switch beallitGomb;
 
         beallit= view.findViewById(R.id.beallitText);
         beallitGomb=view.findViewById(R.id.beallitGomb);
+rendszertext = view.findViewById(R.id.textViewsystem);
+rendszertext.setVisibility(View.INVISIBLE);
 
+        
+        rendszertext.setText("sdfdfs");
+        rendszertext.setVisibility(View.VISIBLE);
 
+                if(MainActivity.sharedPref.getBoolean("Sötétmód",true)){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    beallitGomb.setChecked(true);
 
+                }else{
 
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        if(MainActivity.sharedPref.getBoolean("Sötétmód",true)){
-          AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-beallitGomb.setChecked(true);
-
-        }else{
-
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+
+
 
 
         beallitGomb.setOnClickListener(new View.OnClickListener() {

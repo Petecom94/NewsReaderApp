@@ -1,9 +1,12 @@
 package com.example.pscproba46;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -129,6 +132,23 @@ recyclerViewMenetrend.addItemDecoration(itemDecorationRecycler,0);
         cimteszt=view.findViewById(R.id.TwitchtextView);
         cimteszt.setVisibility(View.INVISIBLE);
 MainActivity.bar.setVisibility(View.VISIBLE);
+twitchButton.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Uri uri = Uri.parse("https://www.twitch.tv/pschungary");
+
+        Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+        likeIng.setPackage("tv.twitch.android.viewer");
+
+        try {
+            getContext().startActivity(likeIng);
+        } catch (ActivityNotFoundException e) {
+            getContext().startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://www.twitch.tv/pschungary"  )));
+        }
+    }
+    });
 
 
 //recyclerViewMenetrend.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT));

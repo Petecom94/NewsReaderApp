@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,11 +34,15 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 
+import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class RecyclerViewAdapterMenetrend extends RecyclerView.Adapter<RecyclerViewAdapterMenetrend.ViewHolderMenetrend> {
     SimpleDateFormat sdf;
@@ -92,22 +97,59 @@ Date currentime = Calendar.getInstance().getTime();
         //currentime.compareTo(sdf.parse(mMenetrend.get(position).getEnd_date()))>0
          sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        Glide.with(Menetrend.TwitchcardView.getContext())
-                .load(mMenetrend.get(0).getImage().getUrl())
 
-                .into(new CustomTarget<Drawable>() {
-                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-                    @Override
-                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        Menetrend.TwitchcardView.setBackground(resource);
-                    }
 
-                    @Override
-                    public void onLoadCleared(@Nullable Drawable placeholder) {
+ArrayList<Date> latestDate= new ArrayList<>();
+Date date2;
+Date date3;
+int melyikindex;
+for(int i=0;i<mMenetrend.size();i++){
+    try {
 
-                    }
-                });
-        Menetrend.cimteszt.setText(mMenetrend.get(0).getTitle());
+        date2=sdf.parse(mMenetrend.get(i).getStart_date());
+        date3=sdf.parse(mMenetrend.get(i).getEnd_date());
+        if(currentime.compareTo(date3)<0){
+
+            latestDate.add(date2);
+        }
+
+
+
+
+
+
+    } catch (ParseException e) {
+        e.printStackTrace();
+    }
+
+
+
+}
+
+        System.out.println(sdf.format(Collections.min(latestDate)));
+        System.out.println(mMenetrend.get(1).start_date);
+        System.out.println(Collections.min(latestDate));
+        System.out.println(mMenetrend.indexOf(sdf.format(Collections.min(latestDate))));
+        System.out.println(latestDate.size());
+        System.out.println(mMenetrend.size());
+                Glide.with(Menetrend.TwitchcardView.getContext())
+                        .load(mMenetrend.get(mMenetrend.size()-latestDate.size()).getImage().getUrl())
+
+                        .into(new CustomTarget<Drawable>() {
+                            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                            @Override
+                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                Menetrend.TwitchcardView.setBackground(resource);
+                            }
+
+                            @Override
+                            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                            }
+                        });
+                Menetrend.cimteszt.setText(mMenetrend.get(mMenetrend.size()-latestDate.size()).getTitle());
+
+
         try {
            if(currentime.compareTo(sdf.parse(mMenetrend.get(position).getEnd_date()))>0){
                //holder.textkezdes.setText(mMenetrend.get(position).getStart_date());
@@ -120,7 +162,7 @@ Date currentime = Calendar.getInstance().getTime();
                menetrend = new Menetrend();
 
 
-Date date2=sdf.parse(mMenetrend.get(0).start_date);
+
 
 
 

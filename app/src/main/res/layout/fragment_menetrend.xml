@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:text="TextView"
-                android:textColor="#FF1C1C"
+                android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:background="@drawable/trending_gradient_shape"
-                android:backgroundTint="@color/design_default_color_on_primary"
+                android:backgroundTint="?attr/colorOnPrimary"
                 android:rotationX="-180"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />

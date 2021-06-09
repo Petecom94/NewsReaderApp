@@ -47,7 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private static final String TAG = "RecyclerViewAdapter";
     private ArrayList<Post> mImageNames;
-public  ArrayList<String> multiarray= new ArrayList<>();
+public   ArrayList<String> multiarray= new ArrayList<>();
     private Context mContext;
 MainActivity asd;
 

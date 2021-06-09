@@ -57,11 +57,12 @@ TextView kedvencek;
         if(sharedPref.getBoolean("Sötétmód",true)){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
-
         }else{
 
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         }
+
 
 
         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment1).commit();

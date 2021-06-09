@@ -119,6 +119,9 @@ public class WebViewFragment extends Fragment {
                 webview.loadUrl("javascript:(function() { " +
                         "var head = document.getElementById('gp-footer-widgets').style.display='none'; " +
                         "})()");
+                webview.loadUrl("javascript:(function() { " +
+                        "var lofasz = document.getElementById('comments').style.display = 'none';"
+                        +"})()");
 
 
 
