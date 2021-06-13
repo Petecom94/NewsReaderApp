@@ -30,12 +30,9 @@ public static TextView rendszertext;
 
         beallit= view.findViewById(R.id.beallitText);
         beallitGomb=view.findViewById(R.id.beallitGomb);
-rendszertext = view.findViewById(R.id.textViewsystem);
-rendszertext.setVisibility(View.INVISIBLE);
 
         
-        rendszertext.setText("sdfdfs");
-        rendszertext.setVisibility(View.VISIBLE);
+
 
                 if(MainActivity.sharedPref.getBoolean("Sötétmód",true)){
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);

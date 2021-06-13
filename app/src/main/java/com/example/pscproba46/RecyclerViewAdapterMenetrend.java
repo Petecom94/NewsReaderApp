@@ -127,7 +127,7 @@ for(int i=0;i<mMenetrend.size();i++){
 }
 
         System.out.println(sdf.format(Collections.min(latestDate)));
-        System.out.println(mMenetrend.get(1).start_date);
+        //System.out.println(mMenetrend.get(1).start_date);
         System.out.println(Collections.min(latestDate));
         System.out.println(mMenetrend.indexOf(sdf.format(Collections.min(latestDate))));
         System.out.println(latestDate.size());

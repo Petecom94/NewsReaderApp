@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/imagekepmenetrend"
-        android:layout_width="120dp"
+        android:layout_width="160dp"
         android:layout_height="120dp"
 
         android:layout_marginTop="4dp"
@@ -17,11 +17,12 @@
         android:layout_marginBottom="6dp"
         android:adjustViewBounds="false"
         android:cropToPadding="false"
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/texteloado"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -60,6 +61,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:textColor="@color/szürke"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"

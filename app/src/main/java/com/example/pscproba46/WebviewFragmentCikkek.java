@@ -53,10 +53,43 @@ String cikkekCim;
         Cikkekigaz =this.getArguments().getBoolean("booleanCikkek");
         cikkekCim=this.getArguments().getString("titleCikkek");
 
+
+
+
+
+
         WebSettings webSettings = webviewcikkek.getSettings();
         webSettings.setJavaScriptEnabled(true);
+
+        webviewcikkek.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageFinished(WebView view, String url) {
+
+
+                webviewcikkek.loadUrl("javascript:(function() { " +
+                        "var head = document.getElementById('gp-main-header').style.display='none'; " +
+                        "})()");
+                webviewcikkek.loadUrl("javascript:(function() { " +
+                        "var head = document.getElementById('gp-fixed-header-padding').style.display='none'; " +
+                        "})()");
+                webviewcikkek.loadUrl("javascript:(function() { " +
+                        "var head = document.getElementById('gp-sidebar').style.display='none'; " +
+                        "})()");
+                webviewcikkek.loadUrl("javascript:(function() { " +
+                        "var head = document.getElementById('gp-footer-widgets').style.display='none'; " +
+                        "})()");
+                webviewcikkek.loadUrl("javascript:(function() { " +
+                        "var lofasz = document.getElementById('comments').style.display = 'none';"
+                        +"})()");
+
+
+
+
+            }
+        });
+
         webviewcikkek.loadUrl(CikkekUrl);
-        webviewcikkek.setWebViewClient(new WebViewClient());
+
 
         Glide.with(this).asBitmap().load(imageLinkCikkek).into(imageViewCikkek);
 

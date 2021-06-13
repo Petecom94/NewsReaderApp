@@ -10,7 +10,7 @@
         android:id="@+id/share"
         android:title="Hírek"
 
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/read"
         />
 
 

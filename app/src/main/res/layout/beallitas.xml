@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sötét Mód"
+        android:textColor="?attr/colorOnBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.03"
@@ -22,17 +23,11 @@
         android:id="@+id/beallitGomb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:shadowColor="#C62626"
         app:layout_constraintBottom_toBottomOf="@+id/beallitText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toEndOf="@+id/beallitText"
         app:layout_constraintTop_toTopOf="@+id/beallitText" />
 
-    <TextView
-        android:id="@+id/textViewsystem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="78dp"
-        tools:layout_editor_absoluteY="97dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
