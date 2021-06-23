@@ -9,10 +9,10 @@
         <item name="colorSecondary">#6AFFFEFE</item>
         <item name="colorSecondaryVariant">#9FFFFFFF</item>
         <item name="colorOnSecondary">#9AFFFFFF</item>
-
+        <item name="colorOnBackground">#000000</item>
         <item name="colorOnSurface">#B9FFFFFF</item>
         <!-- Status bar color. -->
-        <item name="colorSurface">#9AFFFFFF</item>
+        <item name="colorSurface">#66FFFFFF</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="backgroundTint">#2A000000</item>
         <!-- Customize your theme here. -->

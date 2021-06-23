@@ -48,8 +48,8 @@ public class Home extends Fragment {
     public ArrayList<HashMap> hirek;
     ArrayList<HashMap<String, String>> contactList;
     public int pagenumber = 1;
-     RecyclerViewAdapter adapter;
-public boolean clicked= true;
+    public static  RecyclerViewAdapter adapter;
+    public boolean clicked= true;
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
 

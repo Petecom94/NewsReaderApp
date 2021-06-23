@@ -25,7 +25,7 @@ public static TextView rendszertext;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+MainActivity.bar.setVisibility(View.INVISIBLE);
         View view= inflater.inflate(R.layout.beallitas, container, false);
 
         beallit= view.findViewById(R.id.beallitText);

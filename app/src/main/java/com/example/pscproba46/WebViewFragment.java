@@ -62,6 +62,8 @@ import java.lang.annotation.ElementType;
 
 import java.sql.SQLOutput;
 
+import static com.example.pscproba46.RecyclerViewAdapter.multiarray;
+
 public class WebViewFragment extends Fragment {
     public static WebView webview;
     public static Toolbar toolbar;
@@ -151,6 +153,7 @@ webview.loadUrl(fileName);
 
                 switch (item.getItemId()) {
                     case R.id.likeweb:
+                      
 
 
                         break;

@@ -39,7 +39,7 @@ public class KedvencCikkek extends Fragment {
     public ArrayList<HashMap> hirek;
     ArrayList<HashMap<String, String>> contactList;
     public int pagenumber = 1;
-    RecyclerViewAdapterCikkek adapter;
+    public static RecyclerViewAdapterCikkek adapter;
     public static TextView textkedvencikkek;
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
