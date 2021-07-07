@@ -57,9 +57,8 @@ Button buttonUp;
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_home,container,false);
 
-
-
-       // buttonUp.setVisibility(view.GONE);
+buttonUp=view.findViewById(R.id.buttonUp);
+       buttonUp.setVisibility(view.GONE);
         manager = new LinearLayoutManager(getContext());
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerv_view);
         recyclerView.setLayoutManager(manager);

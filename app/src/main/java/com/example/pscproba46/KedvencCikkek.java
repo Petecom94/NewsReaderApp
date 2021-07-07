@@ -63,6 +63,7 @@ public class KedvencCikkek extends Fragment {
         textkedvencikkek=view.findViewById(R.id.textViewKedvencek);
         MainActivity.bar.setVisibility(View.GONE);
         buttonCikkekUp=view.findViewById(R.id.buttonUpKedvencek);
+        buttonCikkekUp.setVisibility(View.GONE);
         textkedvencikkek.setText("Kedvenceim");
         if(RecyclerViewAdapterCikkek.getAllSavedMyIds(getContext()).size()!=managercikkek.getItemCount()){
         initrecview3();

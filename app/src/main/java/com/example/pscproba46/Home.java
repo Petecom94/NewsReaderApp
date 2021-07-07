@@ -52,7 +52,7 @@ public class Home extends Fragment {
     public boolean clicked= true;
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
-
+   public static Button buttonUp;
     private String TAG;
     private Object view;
     ProgressBar progress;
@@ -105,10 +105,14 @@ public class Home extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_home, container, false);
-        Button buttonUp= view.findViewById(R.id.buttonUp);
+        buttonUp= view.findViewById(R.id.buttonUp);
         buttonUp.setVisibility(view.GONE);
          manager = new LinearLayoutManager(getContext());
+        ItemDecorationRecycler itemDecorationRecycler= new ItemDecorationRecycler(30);
+        ItemDecorationRecycler itemDecorationRecycler2= new ItemDecorationRecycler(-30);
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerv_view);
+        recyclerView.addItemDecoration(itemDecorationRecycler);
         recyclerView.setLayoutManager(manager);
         adapter = new RecyclerViewAdapter(getContext(), mNames);
         recyclerView.setAdapter(adapter);
