@@ -18,10 +18,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -70,9 +73,11 @@ public class WebViewFragment extends Fragment {
     String fileName;
     Bitmap Bitmap;
     ImageView Imageviews;
+    String id;
     String imageLink;
     String link;
     String title;
+    ProgressBar webviewProgressBar;
     // String savedImagePath = null;
     String finalsource;
     private Intent shareIntent;
@@ -84,11 +89,26 @@ public class WebViewFragment extends Fragment {
         toolbar = view.findViewById(R.id.toolbar);
         Menu menu = toolbar.getMenu();
         MenuItem item2 = menu.findItem(R.id.likeweb);
-        webview = view.findViewById(R.id.webview);
+
+
+         webviewProgressBar= view.findViewById(R.id.webviewProgressBar);
+
+        webviewProgressBar.setVisibility(View.VISIBLE);
+
+
+
+
+                webview = view.findViewById(R.id.webview);
+        webviewProgressBar.setProgress( webview.getProgress());
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            CookieManager.getInstance().setAcceptThirdPartyCookies(webview, true);
+        } else {
+            CookieManager.getInstance().setAcceptCookie(true);
+        }
 
         Html.fromHtml(this.getArguments().getString("title"));
         fileName = this.getArguments().getString("image");
-        String id = this.getArguments().getString("id");
+        id = this.getArguments().getString("id");
        title = Html.fromHtml(this.getArguments().getString("title")).toString();
         imageLink = this.getArguments().getString("imageLink");
 
@@ -110,26 +130,58 @@ public class WebViewFragment extends Fragment {
 
         // Force links and redirects to open in the WebView instead of in a browser
         webview.setWebViewClient(new WebViewClient(){
+
+
+
+            @Override
+            public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                webviewProgressBar.setProgress( webview.getProgress());
+
+
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                webviewProgressBar.setProgress( webview.getProgress());
+                return super.shouldOverrideUrlLoading(view, request);
+            }
+
+            @Override
+            public void onLoadResource(WebView view, String url) {
+
+                webviewProgressBar.setProgress( webview.getProgress());
+
+                try{
+
+                    webview.loadUrl("javascript:(function() { " +
+                            "var head = document.getElementById('gp-main-header').style.display='none'; " +
+                            "})()");
+                    webview.loadUrl("javascript:(function() { " +
+                            "var head = document.getElementById('gp-fixed-header-padding').style.display='none'; " +
+                            "})()");
+                    webview.loadUrl("javascript:(function() { " +
+                            "var head = document.getElementById('gp-sidebar').style.display='none'; " +
+                            "})()");
+                    webview.loadUrl("javascript:(function() { " +
+                            "var head = document.getElementById('gp-footer-widgets').style.display='none'; " +
+                            "})()");
+                    webview.loadUrl("javascript:(function() { " +
+                            "var lofasz = document.getElementById('comments').style.display = 'none';"
+                            +"})()");
+
+
+                }catch(Exception e){
+e.printStackTrace();
+
+                }
+            }
+
             @Override
             public void onPageFinished(WebView view, String url) {
+                webviewProgressBar.setProgress( webview.getProgress());
 
-
-                webview.loadUrl("javascript:(function() { " +
-                        "var head = document.getElementById('gp-main-header').style.display='none'; " +
-                        "})()");
-                webview.loadUrl("javascript:(function() { " +
-                        "var head = document.getElementById('gp-fixed-header-padding').style.display='none'; " +
-                        "})()");
-                webview.loadUrl("javascript:(function() { " +
-                        "var head = document.getElementById('gp-sidebar').style.display='none'; " +
-                        "})()");
-                webview.loadUrl("javascript:(function() { " +
-                        "var head = document.getElementById('gp-footer-widgets').style.display='none'; " +
-                        "})()");
-                webview.loadUrl("javascript:(function() { " +
-                        "var lofasz = document.getElementById('comments').style.display = 'none';"
-                        +"})()");
-
+              webviewProgressBar.setVisibility(View.GONE);
 
 
 
@@ -148,15 +200,23 @@ webview.loadUrl(fileName);
 
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+
+
             @Override
             public boolean onMenuItemClick(MenuItem item) {
 
                 switch (item.getItemId()) {
                     case R.id.likeweb:
-                      
+                      if(likeOrNot==true){
+                          item2.setIcon(R.drawable.ic_baseline_favorite_border_24);
 
+                      }else{
+                          item2.setIcon(R.drawable.ic_baseline_favorite_24);
 
+                      }
                         break;
+
+
                     case R.id.shareweb:
                     default:
 onShareItem();

@@ -43,7 +43,7 @@ public class Home extends Fragment {
 
     RecyclerView recyclerView;
     JasonPlaceHolderApi jsonPlaceHolderApi;
-    public ArrayList<Post> mNames = new ArrayList<>();
+    public  ArrayList<Post> mNames = new ArrayList<>();
 
     public ArrayList<HashMap> hirek;
     ArrayList<HashMap<String, String>> contactList;

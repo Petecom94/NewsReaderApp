@@ -63,8 +63,8 @@ String cikkekCim;
 
         webviewcikkek.setWebViewClient(new WebViewClient(){
             @Override
-            public void onPageFinished(WebView view, String url) {
-
+            public void onLoadResource(WebView view, String url) {
+                super.onLoadResource(view, url);
 
                 webviewcikkek.loadUrl("javascript:(function() { " +
                         "var head = document.getElementById('gp-main-header').style.display='none'; " +
@@ -81,6 +81,13 @@ String cikkekCim;
                 webviewcikkek.loadUrl("javascript:(function() { " +
                         "var lofasz = document.getElementById('comments').style.display = 'none';"
                         +"})()");
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+
+
+
 
 
 

@@ -165,7 +165,7 @@ multiarray =getAllSavedMyIds(mContext);
                    bundle.putString("image", mImageNames.get(position).getLink());
                    bundle.putString("title",mImageNames.get(position).getTitle().getTitle());
                    bundle.putString("imageLink",mImageNames.get(position).getimgLink());
-
+                   bundle.putString("id",mImageNames.get(position).getId());
 
                    main.fragment4.setArguments(bundle);//Here pass your data
 
