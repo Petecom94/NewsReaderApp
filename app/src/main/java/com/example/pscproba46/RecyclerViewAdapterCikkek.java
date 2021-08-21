@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -103,7 +104,7 @@ Log.e("ID cikkek:",mImageNames.get(position).getId());
                    bundle.putString("imageLinkCikkek", mImageNames.get(position).getFimg_url());
                    bundle.putString("titleCikkek",mImageNames.get(position).getTitle().getRendered());
                    bundle.putString("imageCikkek",mImageNames.get(position).getLink());
-
+                   bundle.putString("cikkekId",mImageNames.get(position).getId());
 
                    main.fragment5.setArguments(bundle);//Here pass your data
 
@@ -142,7 +143,7 @@ Log.e("ID cikkek:",mImageNames.get(position).getId());
                     multiarrayKedvencek =getAllSavedMyIds(mContext);
                     multiarrayKedvencek.add(mImageNames.get(position).getId());
                     saveMyIDs(mContext,multiarrayKedvencek);
-
+                    Toast.makeText(mContext,"Hozzáadva a kedvencekhez",Toast.LENGTH_SHORT).show();
                     Cikkek.textkedvencikkek.setText("Kedvenceim(" +  getAllSavedMyIds(mContext).size()+ ")");
 
 
@@ -151,7 +152,7 @@ Log.e("ID cikkek:",mImageNames.get(position).getId());
                     getAllSavedMyIds(mContext).remove(mImageNames.get(position).getId());
                     multiarrayKedvencek =getAllSavedMyIds(mContext);
                     multiarrayKedvencek.remove(mImageNames.get(position).getId());
-
+                    Toast.makeText(mContext,"Törölve a kedvencekből",Toast.LENGTH_SHORT).show();
 
                     saveMyIDs(mContext,multiarrayKedvencek);
 

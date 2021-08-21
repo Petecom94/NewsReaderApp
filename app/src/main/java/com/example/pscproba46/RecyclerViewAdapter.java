@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
@@ -120,7 +121,7 @@ MainActivity asd;
 
                     if (!getAllSavedMyIds(mContext).contains(mImageNames.get(position).getId())) {
                        holder.kedvencButton.setImageResource(R.drawable.ic_baseline_favorite_24);
-
+                        Toast.makeText(mContext,"Hozzáadva a kedvencekhez",Toast.LENGTH_SHORT).show();
 multiarray =getAllSavedMyIds(mContext);
                      multiarray.add(mImageNames.get(position).getId());
                         saveMyIDs(mContext,multiarray);
@@ -134,7 +135,7 @@ multiarray =getAllSavedMyIds(mContext);
                         multiarray =getAllSavedMyIds(mContext);
                         multiarray.remove(mImageNames.get(position).getId());
 
-
+                        Toast.makeText(mContext,"Törölve a kedvencekből",Toast.LENGTH_SHORT).show();
                         saveMyIDs(mContext,multiarray);
 
                         Home.textKedvencek.setText("Kedvenceim(" + getAllSavedMyIds(mContext).size()+ ")");

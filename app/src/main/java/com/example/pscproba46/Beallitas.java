@@ -31,7 +31,7 @@ MainActivity.bar.setVisibility(View.INVISIBLE);
         beallit= view.findViewById(R.id.beallitText);
         beallitGomb=view.findViewById(R.id.beallitGomb);
 
-        
+
 
 
                 if(MainActivity.sharedPref.getBoolean("Sötétmód",true)){

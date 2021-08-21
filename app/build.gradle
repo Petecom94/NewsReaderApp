@@ -10,8 +10,8 @@ android {
         applicationId 'psc.hu'
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 3
-        versionName "1.01"
+        versionCode 5
+        versionName "1.02"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -2,8 +2,10 @@ package com.example.pscproba46;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -19,12 +21,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -64,7 +69,9 @@ import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 
+import static com.example.pscproba46.RecyclerViewAdapter.getAllSavedMyIds;
 import static com.example.pscproba46.RecyclerViewAdapter.multiarray;
 
 public class WebViewFragment extends Fragment {
@@ -78,9 +85,18 @@ public class WebViewFragment extends Fragment {
     String link;
     String title;
     ProgressBar webviewProgressBar;
+    ArrayList kedvelthirek;
     // String savedImagePath = null;
     String finalsource;
     private Intent shareIntent;
+
+
+    private static final int FULL_SCREEN_SETTING = View.SYSTEM_UI_FLAG_FULLSCREEN |
+            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+            View.SYSTEM_UI_FLAG_IMMERSIVE;
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Nullable
     @Override
@@ -89,7 +105,7 @@ public class WebViewFragment extends Fragment {
         toolbar = view.findViewById(R.id.toolbar);
         Menu menu = toolbar.getMenu();
         MenuItem item2 = menu.findItem(R.id.likeweb);
-
+kedvelthirek= new ArrayList();
 
          webviewProgressBar= view.findViewById(R.id.webviewProgressBar);
 
@@ -127,6 +143,8 @@ public class WebViewFragment extends Fragment {
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
+       WebChromeClientCustom mWebChromeClient = new WebChromeClientCustom();
+        webview.setWebChromeClient(mWebChromeClient);
 
         // Force links and redirects to open in the WebView instead of in a browser
         webview.setWebViewClient(new WebViewClient(){
@@ -207,13 +225,24 @@ webview.loadUrl(fileName);
 
                 switch (item.getItemId()) {
                     case R.id.likeweb:
-                      if(likeOrNot==true){
-                          item2.setIcon(R.drawable.ic_baseline_favorite_border_24);
+                 if(RecyclerViewAdapter.getAllSavedMyIds(getContext()).contains(id)){
+                     Toast.makeText(getContext(),"Törölve a kedvencekből",Toast.LENGTH_SHORT).show();
+                     kedvelthirek= getAllSavedMyIds(getContext());
+                     kedvelthirek.remove(id);
+                     RecyclerViewAdapter.saveMyIDs(getContext(),kedvelthirek);
+                     Home.adapter.notifyDataSetChanged();
+                     item2.setIcon(R.drawable.ic_baseline_favorite_border_24);
 
-                      }else{
-                          item2.setIcon(R.drawable.ic_baseline_favorite_24);
+                 }else {
+                     Toast.makeText(getContext(),"Hozzáadva a kedvencekhez",Toast.LENGTH_SHORT).show();
+                     kedvelthirek= getAllSavedMyIds(getContext());
+                     kedvelthirek.add(id);
 
-                      }
+                     RecyclerViewAdapter.saveMyIDs(getContext(),kedvelthirek);
+                     Home.adapter.notifyDataSetChanged();
+                     item2.setIcon(R.drawable.ic_baseline_favorite_24);
+                 }
+
                         break;
 
 
@@ -301,7 +330,77 @@ onShareItem();
         return bmpUri;
     }
 
-}
+
+    //Video full screen mod
+
+    private class WebChromeClientCustom extends WebChromeClient {
+        private View mCustomView;
+        private WebChromeClient.CustomViewCallback mCustomViewCallback;
+        private int mOriginalOrientation;
+        private int mOriginalSystemUiVisibility;
+
+
+        @Override
+        public void onHideCustomView() {
+            super.onHideCustomView();
+
+            ((FrameLayout) getActivity().getWindow().getDecorView()).removeView(this.mCustomView);
+            this.mCustomView = null;
+            getActivity().getWindow().getDecorView().setSystemUiVisibility(this.mOriginalSystemUiVisibility);
+            getActivity().setRequestedOrientation(this.mOriginalOrientation);
+            this.mCustomViewCallback.onCustomViewHidden();
+            this.mCustomViewCallback = null;
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        }
+
+        @Override
+        public void onShowCustomView(View paramView, WebChromeClient.CustomViewCallback paramCustomViewCallback) {
+            if (this.mCustomView != null) {
+                onHideCustomView();
+                return;
+            }
+            this.mCustomView = paramView;
+            this.mOriginalSystemUiVisibility = getActivity().getWindow().getDecorView().getSystemUiVisibility();
+            this.mOriginalOrientation = getActivity().getRequestedOrientation();
+            this.mCustomViewCallback = paramCustomViewCallback;
+            ((FrameLayout) getActivity().getWindow()
+                    .getDecorView())
+                    .addView(this.mCustomView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            getActivity().getWindow().getDecorView().setSystemUiVisibility(FULL_SCREEN_SETTING);
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+            this.mCustomView.setOnSystemUiVisibilityChangeListener(visibility -> updateControls());
+        }
+        @Override
+        public Bitmap getDefaultVideoPoster() {
+            if (mCustomView == null) {
+                return null;
+            }
+            return BitmapFactory.decodeResource(getActivity().getResources(), 2130837573);
+
+        }
+        void updateControls() {
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) this.mCustomView.getLayoutParams();
+            params.bottomMargin = 0;
+            params.topMargin = 0;
+            params.leftMargin = 0;
+            params.rightMargin = 0;
+            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            this.mCustomView.setLayoutParams(params);
+            getActivity().getWindow().getDecorView().setSystemUiVisibility(FULL_SCREEN_SETTING);
+
+
+
+        }
+
+
+
+        @Override
+        public void onCloseWindow(WebView window) {
+            super.onCloseWindow(window);
+        }
+}}
 
 
 

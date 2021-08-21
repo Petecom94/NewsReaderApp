@@ -45,7 +45,7 @@ public class Cikkek extends Fragment {
     public ArrayList<HashMap> hirek;
     ArrayList<HashMap<String, String>> contactList;
     public int pagenumber = 1;
-    RecyclerViewAdapterCikkek adapter;
+    public static  RecyclerViewAdapterCikkek adapter;
 public static TextView textkedvencikkek;
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
@@ -110,6 +110,9 @@ Button buttonCikkekUp;
         recyclerViewCikkek.setHasFixedSize(true);
         initrecview3();
         textkedvencikkek=view.findViewById(R.id.textViewKedvencek);
+        ItemDecorationRecycler itemDecorationRecycler= new ItemDecorationRecycler(30);
+
+        recyclerViewCikkek.addItemDecoration(itemDecorationRecycler);
 
         buttonCikkekUp=view.findViewById(R.id.buttonUpKedvencek);
 textkedvencikkek.setText("Kedvenceim"+"("+RecyclerViewAdapterCikkek.getAllSavedMyIds(getContext()).size()+")");
