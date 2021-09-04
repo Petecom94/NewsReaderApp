@@ -6,21 +6,51 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
+
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class Beallitas extends Fragment {
 
 TextView beallit;
 Switch beallitGomb;
+TextView textViewBejelentkezes,felhtext,jelszoText;
+EditText editTextTextPersonName,editTextTextPassword;
+ImageButton imagekilep;
+Button buttonBejelentkez;
+    boolean logged= false;
+    public static String felh;
+    public  static String jelszo;
+  public Boolean token;
+  String username;
+  String jwtToken;
 public static TextView rendszertext;
     @Nullable
     @Override
@@ -30,7 +60,52 @@ MainActivity.bar.setVisibility(View.INVISIBLE);
 
         beallit= view.findViewById(R.id.beallitText);
         beallitGomb=view.findViewById(R.id.beallitGomb);
+        textViewBejelentkezes=view.findViewById(R.id.textViewBejelentkezés);
+        felhtext=view.findViewById(R.id.felhtext);
+        jelszoText=view.findViewById(R.id.jelszoText);
+        editTextTextPersonName=view.findViewById(R.id.editTextTextPersonName);
+        editTextTextPassword=view.findViewById(R.id.editTextTextPassword);
+        imagekilep=view.findViewById(R.id.imagekilep);
+        buttonBejelentkez=view.findViewById(R.id.buttonBejelentkez);
 
+
+        if(logged!=true){
+            felhtext.setVisibility(View.GONE);
+            felhtext.setVisibility(View.GONE);
+            jelszoText.setVisibility(View.GONE);
+            editTextTextPassword.setVisibility(View.GONE);
+            editTextTextPersonName.setVisibility(View.GONE);
+            imagekilep.setVisibility(View.GONE);
+            buttonBejelentkez.setVisibility(View.GONE);
+
+        }
+
+
+      textViewBejelentkezes.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              logged=true;
+              felhtext.setVisibility(View.VISIBLE);
+              felhtext.setVisibility(View.VISIBLE);
+              jelszoText.setVisibility(View.VISIBLE);
+              editTextTextPassword.setVisibility(View.VISIBLE);
+              editTextTextPersonName.setVisibility(View.VISIBLE);
+              imagekilep.setVisibility(View.VISIBLE);
+              buttonBejelentkez.setVisibility(View.VISIBLE);
+              buttonBejelentkez.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                  public void onClick(View v) {
+                    //  felh= "info.petronauta@gmail.com";
+                     // jelszo="P4991PetroNautaANG";
+
+                      getToken(felh,jelszo);
+
+
+
+                  }
+              });
+          }
+      });
 
 
 
@@ -70,4 +145,45 @@ MainActivity.bar.setVisibility(View.INVISIBLE);
         });
         return view;
     }
+
+public void getToken(String email,String jelszó) {
+
+
+    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://playstationcommunity.hu/").addConverterFactory(GsonConverterFactory.create()).build();
+    GetToken getJwtToken = retrofit.create(GetToken.class);
+    //Call<List<Post>> call = jsonPlaceHolderApi.getPost("posts/?page=1&_embed&fbclid=IwAR0VKgpA9hN38Dhajrt4Dk4ba1LOoIrb9Wn2i2sDjg4zkFEP8Kb3vsDu7IQ&include=" + returnArray(RecyclerViewAdapter.getAllSavedMyIds(getContext())));
+    Call<GetJwtToken> call = getJwtToken.getToken("?rest_route=/simple-jwt-login/v1/auth&email="+editTextTextPersonName.getText()+"&password="+editTextTextPassword.getText());
+
+call.enqueue(new Callback<GetJwtToken>() {
+    @Override
+    public void onResponse(Call<GetJwtToken> call, Response<GetJwtToken> response) {
+        if(response.isSuccessful()){
+
+
+            Toast.makeText(getContext(),"Sikeres bejelentkezés",Toast.LENGTH_SHORT).show();
+        jwtToken= response.body().getData().getJwt();
+            try {
+                DecodedJWT jwt = JWT.decode(jwtToken);
+               Claim claimid= jwt.getClaim("id");
+               int t =claimid.asInt();
+                System.out.println(t);
+              Claim claimUsername= jwt.getClaim("username");
+username = claimUsername.asString();
+textViewBejelentkezes.setText("Bejelentkezve, mint:"+username);
+            } catch (JWTDecodeException exception){
+                //Invalid token
+            }
+        }else{
+
+            Toast.makeText(getContext(),"Sikertelen bejelentkezés",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onFailure(Call<GetJwtToken> call, Throwable t) {
+        System.out.println("dfsdkjfnsdkjnf");
+    }
+});
+}
+
 }
