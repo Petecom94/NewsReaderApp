@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -89,6 +90,9 @@ public class WebViewFragment extends Fragment {
     // String savedImagePath = null;
     String finalsource;
     private Intent shareIntent;
+    public int userID;
+    public  String UserToken;
+    public Boolean Logged;
 
 
     private static final int FULL_SCREEN_SETTING = View.SYSTEM_UI_FLAG_FULLSCREEN |
@@ -105,9 +109,9 @@ public class WebViewFragment extends Fragment {
         toolbar = view.findViewById(R.id.toolbar);
         Menu menu = toolbar.getMenu();
         MenuItem item2 = menu.findItem(R.id.likeweb);
-kedvelthirek= new ArrayList();
+        kedvelthirek= new ArrayList();
 
-         webviewProgressBar= view.findViewById(R.id.webviewProgressBar);
+        webviewProgressBar= view.findViewById(R.id.webviewProgressBar);
 
         webviewProgressBar.setVisibility(View.VISIBLE);
 
@@ -130,6 +134,16 @@ kedvelthirek= new ArrayList();
 
 
 
+
+        UserToken= this.getArguments().getString("bearer");
+                userID=this.getArguments().getInt("UserID");
+                Logged=this.getArguments().getBoolean("logged");
+
+                if(Logged=true){
+                    Toast.makeText(getContext(),"Sikertelen bejelentkezés"+UserToken,Toast.LENGTH_SHORT).show();
+
+                }
+
         Imageviews = view.findViewById(R.id.imageView);
         Imageviews.setVisibility(View.VISIBLE);
 
@@ -149,7 +163,11 @@ kedvelthirek= new ArrayList();
         // Force links and redirects to open in the WebView instead of in a browser
         webview.setWebViewClient(new WebViewClient(){
 
-
+            @Nullable
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                return super.shouldInterceptRequest(view, request);
+            }
 
             @Override
             public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {

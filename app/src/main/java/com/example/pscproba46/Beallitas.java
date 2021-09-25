@@ -1,12 +1,7 @@
 package com.example.pscproba46;
 
-import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +22,11 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,9 +44,11 @@ Button buttonBejelentkez;
     boolean logged= false;
     public static String felh;
     public  static String jelszo;
+    public Boolean siker;
   public Boolean token;
   String username;
   String jwtToken;
+  public int userid;
 public static TextView rendszertext;
     @Nullable
     @Override
@@ -152,24 +150,29 @@ public void getToken(String email,String jelszó) {
     Retrofit retrofit = new Retrofit.Builder().baseUrl("https://playstationcommunity.hu/").addConverterFactory(GsonConverterFactory.create()).build();
     GetToken getJwtToken = retrofit.create(GetToken.class);
     //Call<List<Post>> call = jsonPlaceHolderApi.getPost("posts/?page=1&_embed&fbclid=IwAR0VKgpA9hN38Dhajrt4Dk4ba1LOoIrb9Wn2i2sDjg4zkFEP8Kb3vsDu7IQ&include=" + returnArray(RecyclerViewAdapter.getAllSavedMyIds(getContext())));
-    Call<GetJwtToken> call = getJwtToken.getToken("?rest_route=/simple-jwt-login/v1/auth&email="+editTextTextPersonName.getText()+"&password="+editTextTextPassword.getText());
+    Call<GetJwtToken> call = getJwtToken.getToken("?rest_route=/simple-jwt-login/v1/auth&username="+editTextTextPersonName.getText()+"&password="+editTextTextPassword.getText());
 
 call.enqueue(new Callback<GetJwtToken>() {
     @Override
     public void onResponse(Call<GetJwtToken> call, Response<GetJwtToken> response) {
         if(response.isSuccessful()){
 
-
+siker= response.isSuccessful();
             Toast.makeText(getContext(),"Sikeres bejelentkezés",Toast.LENGTH_SHORT).show();
         jwtToken= response.body().getData().getJwt();
+
             try {
                 DecodedJWT jwt = JWT.decode(jwtToken);
-               Claim claimid= jwt.getClaim("id");
-               int t =claimid.asInt();
-                System.out.println(t);
-              Claim claimUsername= jwt.getClaim("username");
-username = claimUsername.asString();
-textViewBejelentkezes.setText("Bejelentkezve, mint:"+username);
+                Claim claimid= jwt.getClaim("id");
+                userid =claimid.asInt();
+                System.out.println(userid);
+                Claim claimUsername= jwt.getClaim("username");
+                username = claimUsername.asString();
+                textViewBejelentkezes.setText("Bejelentkezve,mint:"+username);
+
+getBearerToken();
+
+
             } catch (JWTDecodeException exception){
                 //Invalid token
             }
@@ -184,6 +187,46 @@ textViewBejelentkezes.setText("Bejelentkezve, mint:"+username);
         System.out.println("dfsdkjfnsdkjnf");
     }
 });
-}
 
+
+}
+public void getBearerToken(){
+
+
+
+
+
+
+         Retrofit retrofit = new Retrofit.Builder()
+
+                 .baseUrl("https://playstationcommunity.hu/wp-json/jwt-auth/v1/token/")
+                 .addConverterFactory(GsonConverterFactory.create())
+                 .build();
+         PostBearerApi postBearer= retrofit.create(PostBearerApi.class);
+         Call<GetBearerToken> call =postBearer.getBearerToken("?username="+editTextTextPersonName.getText()+"&password="+editTextTextPassword.getText());
+         call.enqueue(new Callback<GetBearerToken>() {
+             @Override
+             public void onResponse(Call<GetBearerToken> call, Response<GetBearerToken> response) {
+
+
+                  Bundle bundleToken= new Bundle();
+                  bundleToken.putString("bearer",response.body().token);
+                  bundleToken.putInt("UserID",userid);
+                  bundleToken.putBoolean("logged",true);
+MainActivity main = new MainActivity();
+main.fragment4.setArguments(bundleToken);
+                     main.fragment5.setArguments(bundleToken);
+
+
+             }
+
+             @Override
+             public void onFailure(Call<GetBearerToken> call, Throwable t) {
+                 System.out.println("ssss");
+             }
+         });
+
+
+
+}
 }
