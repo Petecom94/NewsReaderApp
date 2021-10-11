@@ -71,6 +71,8 @@ import java.lang.annotation.ElementType;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.pscproba46.RecyclerViewAdapter.getAllSavedMyIds;
 import static com.example.pscproba46.RecyclerViewAdapter.multiarray;
@@ -90,9 +92,9 @@ public class WebViewFragment extends Fragment {
     // String savedImagePath = null;
     String finalsource;
     private Intent shareIntent;
-    public int userID;
-    public  String UserToken;
-    public Boolean Logged;
+    public static int userID;
+    public static String UserToken;
+    public static Boolean Logged;
 
 
     private static final int FULL_SCREEN_SETTING = View.SYSTEM_UI_FLAG_FULLSCREEN |
@@ -135,14 +137,15 @@ public class WebViewFragment extends Fragment {
 
 
 
-        UserToken= this.getArguments().getString("bearer");
-                userID=this.getArguments().getInt("UserID");
-                Logged=this.getArguments().getBoolean("logged");
+     //   UserToken= getToken.getString("bearer");
+       //         userID=getToken.getString("UserID");
 
-                if(Logged=true){
-                    Toast.makeText(getContext(),"Sikertelen bejelentkezés"+UserToken,Toast.LENGTH_SHORT).show();
 
-                }
+
+                    Toast.makeText(getContext(),"Sikertelen bejelentkezés"+Logged,Toast.LENGTH_SHORT).show();
+
+
+
 
         Imageviews = view.findViewById(R.id.imageView);
         Imageviews.setVisibility(View.VISIBLE);
@@ -188,29 +191,46 @@ public class WebViewFragment extends Fragment {
 
                 webviewProgressBar.setProgress( webview.getProgress());
 
-                try{
-
-                    webview.loadUrl("javascript:(function() { " +
-                            "var head = document.getElementById('gp-main-header').style.display='none'; " +
-                            "})()");
-                    webview.loadUrl("javascript:(function() { " +
-                            "var head = document.getElementById('gp-fixed-header-padding').style.display='none'; " +
-                            "})()");
-                    webview.loadUrl("javascript:(function() { " +
-                            "var head = document.getElementById('gp-sidebar').style.display='none'; " +
-                            "})()");
-                    webview.loadUrl("javascript:(function() { " +
-                            "var head = document.getElementById('gp-footer-widgets').style.display='none'; " +
-                            "})()");
-                    webview.loadUrl("javascript:(function() { " +
-                            "var lofasz = document.getElementById('comments').style.display = 'none';"
-                            +"})()");
 
 
-                }catch(Exception e){
-e.printStackTrace();
 
-                }
+
+  
+
+
+    try{
+
+        webview.loadUrl("javascript:(function() { " +
+                "var head = document.getElementById('wpadminbar').style.display='none'; " +
+                "})()");
+
+        webview.loadUrl("javascript:(function() { " +
+                "var head = document.getElementById('psc').style.marginTop='-50px; " +
+                "})()");
+
+        webview.loadUrl("javascript:(function() { " +
+                "var head = document.getElementById('gp-main-header').style.display='none'; " +
+                "})()");
+        webview.loadUrl("javascript:(function() { " +
+                "var head = document.getElementById('gp-fixed-header-padding').style.display='none'; " +
+                "})()");
+        webview.loadUrl("javascript:(function() { " +
+                "var head = document.getElementById('gp-sidebar').style.display='none'; " +
+                "})()");
+        webview.loadUrl("javascript:(function() { " +
+                "var head = document.getElementById('gp-footer-widgets').style.display='none'; " +
+                "})()");
+        /*webview.loadUrl("javascript:(function() { " +
+                "var lofasz = document.getElementById('comments').style.display = 'none';"
+                +"})()");*/
+
+
+    }catch(Exception e){
+        e.printStackTrace();
+
+    }
+
+
             }
 
             @Override
@@ -224,8 +244,19 @@ e.printStackTrace();
             }
         });
 
+        if(Logged!=null){
+            String bearer = "Bearer " + UserToken;
 
-webview.loadUrl(fileName);
+
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("Authorization",bearer);
+            webview.loadUrl("https://playstationcommunity.hu/?rest_route=/simple-jwt-login/v1/autologin&JWT=JWT&data.user.id="+userID+"&redirectUrl="+fileName,map);
+        }else {
+
+            webview.loadUrl(fileName);
+
+        }
+
 
 
 

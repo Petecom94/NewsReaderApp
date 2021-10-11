@@ -49,6 +49,8 @@ Button buttonBejelentkez;
   String username;
   String jwtToken;
   public int userid;
+    Bundle bundleToken= new Bundle();
+
 public static TextView rendszertext;
     @Nullable
     @Override
@@ -168,6 +170,8 @@ siker= response.isSuccessful();
                 System.out.println(userid);
                 Claim claimUsername= jwt.getClaim("username");
                 username = claimUsername.asString();
+
+
                 textViewBejelentkezes.setText("Bejelentkezve,mint:"+username);
 
 getBearerToken();
@@ -208,16 +212,17 @@ public void getBearerToken(){
              @Override
              public void onResponse(Call<GetBearerToken> call, Response<GetBearerToken> response) {
 
+String token= response.body().token;
 
-                  Bundle bundleToken= new Bundle();
-                  bundleToken.putString("bearer",response.body().token);
-                  bundleToken.putInt("UserID",userid);
-                  bundleToken.putBoolean("logged",true);
-MainActivity main = new MainActivity();
-main.fragment4.setArguments(bundleToken);
-                     main.fragment5.setArguments(bundleToken);
+                 Toast.makeText(getContext(),"A token"+token,Toast.LENGTH_SHORT).show();
 
 
+
+WebViewFragment webViewFragment= new WebViewFragment();
+
+       webViewFragment.UserToken=token;
+        webViewFragment.userID=userid;
+webViewFragment.Logged=true;
              }
 
              @Override

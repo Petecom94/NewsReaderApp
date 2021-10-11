@@ -200,8 +200,8 @@ kedveltCikkek= new ArrayList();
         // Get access to bitmap image from view
 
         // Get access to the URI for the bitmap
-        Uri bmpUri = getLocalBitmapUri(imageViewCikkek);
-        if (bmpUri != null) {
+    //    Uri bmpUri = getLocalBitmapUri(imageViewCikkek);
+
 
 
 
@@ -217,8 +217,8 @@ kedveltCikkek= new ArrayList();
             sendIntent.setType("text/plain");
 
 // (Optional) Here we're passing a content URI to an image to be displayed
-            sendIntent.setData(bmpUri);
-            sendIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+           /* sendIntent.setData(bmpUri);
+            sendIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);*/
 
 
 // Show the Sharesheet
@@ -226,9 +226,6 @@ kedveltCikkek= new ArrayList();
 
             // Launch sharing dialog for image
 
-        } else {
-            // ...sharing failed, handle error
-        }
     }
 
 
@@ -252,7 +249,7 @@ kedveltCikkek= new ArrayList();
             bmp.compress(android.graphics.Bitmap.CompressFormat.PNG, 90, out);
             out.close();
             // **Warning:** This will fail for API >= 24, use a FileProvider as shown below instead.
-            bmpUri = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovider", file2);  // use this version for API >= 24
+          //  bmpUri = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovider", file2);  // use this version for API >= 24
         } catch (IOException e) {
             e.printStackTrace();
         }
