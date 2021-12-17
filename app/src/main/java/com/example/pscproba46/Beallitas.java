@@ -1,6 +1,5 @@
 package com.example.pscproba46;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +48,7 @@ Button buttonBejelentkez;
   String username;
   String jwtToken;
   public int userid;
+  public String tokenBearer;
     Bundle bundleToken= new Bundle();
 
 public static TextView rendszertext;
@@ -75,10 +75,48 @@ MainActivity.bar.setVisibility(View.INVISIBLE);
             jelszoText.setVisibility(View.GONE);
             editTextTextPassword.setVisibility(View.GONE);
             editTextTextPersonName.setVisibility(View.GONE);
-            imagekilep.setVisibility(View.GONE);
+            //imagekilep.setVisibility(View.GONE);
             buttonBejelentkez.setVisibility(View.GONE);
 
         }
+        imagekilep.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),tokenBearer+jwtToken,Toast.LENGTH_SHORT).show();
+                OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
+                    @Override
+                    public okhttp3.Response intercept(Chain chain) throws IOException {
+                        Request newRequest  = chain.request().newBuilder()
+                                .addHeader("Authorization", "Bearer " + tokenBearer)
+                                .build();
+                        return chain.proceed(newRequest);
+                    }
+                }).build();
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .client(client)
+                        .baseUrl("https://playstationcommunity.hu/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+RevokeToken revokeToken= retrofit.create(RevokeToken.class);
+Call<GetRevoke> call= revokeToken.getRevoke("?rest_route=/simple-jwt-login/v1/auth/revoke&JWT="+jwtToken);
+call.enqueue(new Callback<GetRevoke>() {
+    @Override
+    public void onResponse(Call<GetRevoke> call, Response<GetRevoke> response) {
+        String siker=response.body().success;
+        Toast.makeText(getContext(),"Válasz"+siker,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFailure(Call<GetRevoke> call, Throwable t) {
+
+    }
+});
+
+            }
+        });
 
 
       textViewBejelentkezes.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +209,7 @@ siker= response.isSuccessful();
                 Claim claimUsername= jwt.getClaim("username");
                 username = claimUsername.asString();
 
-
+                System.out.println(jwtToken);
                 textViewBejelentkezes.setText("Bejelentkezve,mint:"+username);
 
 getBearerToken();
@@ -182,13 +220,13 @@ getBearerToken();
             }
         }else{
 
-            Toast.makeText(getContext(),"Sikertelen bejelentkezés",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"Sikertelen bejelentkezés hibás felhasználó/jelszó",Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onFailure(Call<GetJwtToken> call, Throwable t) {
-        System.out.println("dfsdkjfnsdkjnf");
+        System.out.println("Sikertelen bejelentkezés");
     }
 });
 
@@ -212,15 +250,15 @@ public void getBearerToken(){
              @Override
              public void onResponse(Call<GetBearerToken> call, Response<GetBearerToken> response) {
 
-String token= response.body().token;
+ tokenBearer= response.body().token;
 
                  Toast.makeText(getContext(),"A token"+token,Toast.LENGTH_SHORT).show();
-
+                 System.out.println("A TOKEN"+token);
 
 
 WebViewFragment webViewFragment= new WebViewFragment();
 
-       webViewFragment.UserToken=token;
+       webViewFragment.UserToken=tokenBearer;
         webViewFragment.userID=userid;
 webViewFragment.Logged=true;
              }
@@ -234,4 +272,10 @@ webViewFragment.Logged=true;
 
 
 }
+
+ public void Tokentorol(){
+
+
+
+ }
 }

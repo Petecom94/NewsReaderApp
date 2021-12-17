@@ -142,7 +142,7 @@ public class WebViewFragment extends Fragment {
 
 
 
-                    Toast.makeText(getContext(),"Sikertelen bejelentkezés"+Logged,Toast.LENGTH_SHORT).show();
+
 
 
 
@@ -220,9 +220,15 @@ public class WebViewFragment extends Fragment {
         webview.loadUrl("javascript:(function() { " +
                 "var head = document.getElementById('gp-footer-widgets').style.display='none'; " +
                 "})()");
-        /*webview.loadUrl("javascript:(function() { " +
-                "var lofasz = document.getElementById('comments').style.display = 'none';"
-                +"})()");*/
+
+        if(Logged==null){
+
+            webview.loadUrl("javascript:(function() { " +
+                    "var lofasz = document.getElementById('comments').style.display = 'none';"
+                    +"})()");
+
+        }
+
 
 
     }catch(Exception e){
@@ -245,12 +251,13 @@ public class WebViewFragment extends Fragment {
         });
 
         if(Logged!=null){
-            String bearer = "Bearer " + UserToken;
+           /* String bearer = "Bearer " + UserToken;
 
 
             Map<String, String> map = new HashMap<String, String>();
             map.put("Authorization",bearer);
-            webview.loadUrl("https://playstationcommunity.hu/?rest_route=/simple-jwt-login/v1/autologin&JWT=JWT&data.user.id="+userID+"&redirectUrl="+fileName,map);
+            webview.loadUrl("https://playstationcommunity.hu/?rest_route=/simple-jwt-login/v1/autologin&JWT=JWT&data.user.id="+userID+"&redirectUrl="+fileName,map);*/
+            webview.loadUrl(fileName);
         }else {
 
             webview.loadUrl(fileName);
